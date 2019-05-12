@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Klubovi>
+    <klub nazivKluba="Glavonje" klubID="0" gradKluba="Glavastina"/>
+    <klub nazivKluba="Golaci" klubID="1" gradKluba="Golobrdo"/>
+    <klub nazivKluba="Zumerak" klubID="2" gradKluba="Slatina"/>
+    <klub nazivKluba="ZutoZeleni" klubID="3" gradKluba="Vinkovci"/>
+    <klub nazivKluba="Croatia" klubID="4" gradKluba="Mihaljevci"/>
+    <klub nazivKluba="Pozega" klubID="5" gradKluba="Slavonija"/>
+    <klub nazivKluba="ZelenoZuti" klubID="6" gradKluba="Vukovar"/>
+    <klub nazivKluba="AnteKuku" klubID="7" gradKluba="Slatina"/>
+    <klub nazivKluba="PecenePecenke" klubID="8" gradKluba="Virovitica"/>
+    <klub nazivKluba="Tim" klubID="9" gradKluba="Osvjezenje"/>
+</Klubovi>

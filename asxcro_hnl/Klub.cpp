@@ -33,30 +33,6 @@ string Klub::DohvatiGradKluba()
 	return m_sGradKluba;
 }
 
-int  Klub::IzaberiOpciju() const
-{
-	int a = 0;
-	bool keepGoing = true;
-	char key = ' ';
-	while (keepGoing)
-	{
-		cout << "\n\t\tVas izbor: ";
-		while (_kbhit() == 0) {
-			key = _getch();
-			if (int(key) > 100) //ascii
-			{
-				a = int(key);
-			}
-			else {
-				a = int(key) -48;
-			}
-			keepGoing = false;
-			break;
-		}
-		return a;
-	}
-}
-
 void Klub::SporedniIzbornik(int b)
 {
 	Igrac* i1 = new Igrac();
@@ -210,8 +186,31 @@ repeat:
 			goto repeat;
 			break;
 		}	
+	}	
+}
+
+int  Klub::IzaberiOpciju() const
+{
+	int a = 0;
+	bool keepGoing = true;
+	char key = ' ';
+	while (keepGoing)
+	{
+		cout << "\n\t\tVas izbor: ";
+		while (_kbhit() == 0) {
+			key = _getch();
+			if (int(key) > 100) //ascii
+			{
+				a = int(key);
+			}
+			else {
+				a = int(key) - 48;
+			}
+			keepGoing = false;
+			break;
+		}
+		return a;
 	}
-	
 }
 
 int Klub::KriviOdabir()
@@ -384,7 +383,7 @@ void Klub::IzbrisiKlub()
 		m_vKlubovi = kluboviBezOdabranog;
 		i1->m_vIgraci = igraciBezOdabranih;
 		this->SpremiPromjene(m_vKlubovi);
-		i1->SpremiPromjene();
+		i1->SpremiPromjene(i1->m_vIgraci);
 		cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste izbrisali igrace kluba i klub pod sifrom " << a << TextAttr(TextColor::WHITE);
 	}
 	SporedniIzbornik(2);
@@ -436,28 +435,3 @@ void Klub::FullScreen()
 	keybd_event(VK_RETURN, 0x1c, KEYEVENTF_KEYUP, 0);
 	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0);
 }
-
-bool Klub::operator<(const Klub& k1) const
-{
-	return this->m_nSifraKluba < k1.m_nSifraKluba;
-}
-
-//void Klub::operator=(const Klub &ref)
-//{
-//	this->m_nSifraKluba = ref.m_nSifraKluba;
-//	this->m_sNazivKluba = ref.m_sNazivKluba;
-//	this->m_sGradKluba = ref.m_sGradKluba;
-//}
-
-
-	/*sort(m_vKlubovi.begin(), m_vKlubovi.end(), [](const Klub* lhs, const Klub* rhs) {
-		return lhs->DohvatiSifruKluba() < rhs->DohvatiSifruKluba();
-	});*/
-
-	/*auto vKlubovi_poredano = from(m_vKlubovi)
-		>> orderby_ascending([&](Klub const *klub)
-	{
-		return (klub->DohvatiSifruKluba());
-	})
-		>> to_vector();
-	m_vKlubovi = vKlubovi_poredano;*/

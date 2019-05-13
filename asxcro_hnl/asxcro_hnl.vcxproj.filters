@@ -68,4 +68,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="glavni_izbornik.txt" />
+    <Text Include="hnl_dobrodosli.txt" />
+  </ItemGroup>
 </Project>

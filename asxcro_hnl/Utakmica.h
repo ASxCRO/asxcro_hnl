@@ -10,24 +10,22 @@ public:
 	Utakmica(Klub* k1, Klub* k2, int gd, int gg); //klub domacin id
 	~Utakmica();
 	void GlavniIzbornik();
-	int DohvatiSifruKlubaDomacina();
-	int DohvatiSifruKlubaGosta();
-	int DohvatiGoloveDomacina(Klub* kd, Klub* kg);
-	int DohvatiGoloveGosta();
-	TXML::XMLDocument m_docRezultati;
-	XMLElement *m_eRezultati;
-	vector <Utakmica*>m_vRezultati;
-	void UcitavanjeRezultati();
-	void SpremiPromjene();
+	vector <Utakmica*> m_vRezultati;
 	Klub* DohvatiKlubDomacina();
 	Klub* DohvatiKlubGosta(Klub* kd);
-	void OdigrajUtakmice();
+	int DohvatiGoloveDomacina(Klub* kd, Klub* kg);
+	int DohvatiGoloveGosta();
 	void UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg);//golovi domacin
+protected:
+	void UcitavanjeRezultati();
+	void SpremiPromjene(vector<Utakmica*> vRezultati);
+	void OdigrajUtakmice();
 	void PrikaziRangListu();
+private:
+	TXML::XMLDocument m_docRezultati;
+	XMLElement *m_eRezultati;
 	Klub* m_oKlubDomacina;
 	Klub* m_oKlubGosta;
-private:
-
 	int m_nGoloviDomacina;
 	int m_nGoloviGosta;
 

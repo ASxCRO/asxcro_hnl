@@ -26,45 +26,12 @@ Utakmica::~Utakmica()
 
 }
 
-int Utakmica::DohvatiSifruKlubaDomacina()
-{
-	return m_oKlubDomacina->DohvatiSifruKluba();
-}
-
-int Utakmica::DohvatiSifruKlubaGosta()
-{
-	return m_oKlubGosta->DohvatiSifruKluba();
-}
-
-int Utakmica::DohvatiGoloveDomacina(Klub* kd, Klub* kg)
-{
-	system("CLS");
-	cout << TextAttr(TextColor::CYAN) << "\n\n\t\tOPCIJA: UNESI REZULTAT\n  " << TextAttr(TextColor::WHITE);
-	cout << "\t==========================================\n";
-	cout << "\n\t\tOdabrali ste klub domacina: " << TextAttr(TextColor::CYAN) << kd->DohvatiNazivKluba() << "\n" << TextAttr(TextColor::WHITE);
-	cout << "\n\t\tOdabrali ste klub gosta: " << TextAttr(TextColor::CYAN) << kg->DohvatiNazivKluba() << "\n\n" << TextAttr(TextColor::WHITE);
-
-	cout << TextAttr(TextColor::CYAN) << "\t\tUnesite broj golova kluba domacina: " << TextAttr(TextColor::WHITE);
-	int nGoloviDomacina;
-	cin >> nGoloviDomacina;
-	return nGoloviDomacina;
-}
-
-int Utakmica::DohvatiGoloveGosta()
-{
-	cout << TextAttr(TextColor::CYAN) << "\t\tUnesnite broj golova kluba gosta: " << TextAttr(TextColor::WHITE);
-	int nGoloviGosta;
-	cin >> nGoloviGosta;
-	cout << TextAttr(TextColor::CYAN) << "\t\tUtakmica je uspjesno zapisana!\n  " << TextAttr(TextColor::WHITE);
-	return nGoloviGosta;
-}
-
 void Utakmica::GlavniIzbornik()
 {
 	system("CLS");
 	string sPath = "";
 	string sLine = "";
-	sPath = "C:\\Users\\Korisnik\\Desktop\\hnl dobrodosli\\glavniizbornik.txt";
+	sPath = "glavni_izbornik.txt";
 	ifstream oDatoteka(sPath);
 	if (oDatoteka.is_open())
 	{
@@ -275,6 +242,61 @@ Klub* Utakmica::DohvatiKlubGosta(Klub* kd)
 	}
 }
 
+int Utakmica::DohvatiGoloveDomacina(Klub* kd, Klub* kg)
+{
+	system("CLS");
+	cout << TextAttr(TextColor::CYAN) << "\n\n\t\tOPCIJA: UNESI REZULTAT\n  " << TextAttr(TextColor::WHITE);
+	cout << "\t==========================================\n";
+	cout << "\n\t\tOdabrali ste klub domacina: " << TextAttr(TextColor::CYAN) << kd->DohvatiNazivKluba() << "\n" << TextAttr(TextColor::WHITE);
+	cout << "\n\t\tOdabrali ste klub gosta: " << TextAttr(TextColor::CYAN) << kg->DohvatiNazivKluba() << "\n\n" << TextAttr(TextColor::WHITE);
+
+	cout << TextAttr(TextColor::CYAN) << "\t\tUnesite broj golova kluba domacina: " << TextAttr(TextColor::WHITE);
+	int nGoloviDomacina;
+	cin >> nGoloviDomacina;
+	return nGoloviDomacina;
+}
+
+int Utakmica::DohvatiGoloveGosta()
+{
+	cout << TextAttr(TextColor::CYAN) << "\t\tUnesnite broj golova kluba gosta: " << TextAttr(TextColor::WHITE);
+	int nGoloviGosta;
+	cin >> nGoloviGosta;
+	cout << TextAttr(TextColor::CYAN) << "\t\tUtakmica je uspjesno zapisana!\n  " << TextAttr(TextColor::WHITE);
+	return nGoloviGosta;
+}
+
+void Utakmica::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
+{
+	try {
+		Utakmica *u1 = new Utakmica(k1, k2, gd, gg);
+		auto odigranaUtakmica = from(m_vRezultati)
+			>> where([&](Utakmica const *u2)
+		{
+			return (u2->m_oKlubDomacina->DohvatiSifruKluba() == u1->m_oKlubDomacina->DohvatiSifruKluba());
+		})
+			>> where([&](Utakmica const *u2)
+		{
+			return (u2->m_oKlubGosta->DohvatiSifruKluba() == u2->m_oKlubDomacina->DohvatiSifruKluba());
+		})
+			>> to_vector();
+		if (odigranaUtakmica.size() == 1)
+		{
+			cout << "\n\t" << TextAttr(TextColor::RED) << "\tTa utakmica vec je odigrana!" << TextAttr(TextColor::WHITE);
+			SporedniIzbornik(0);
+		}
+		else
+		{
+			m_vRezultati.push_back(u1);
+			SpremiPromjene(m_vRezultati);
+		}
+	}
+	catch (int) {
+		cout << "\t\t " << TextAttr(TextColor::RED) << " \nNešto nije u redu.\nSpremanje novog klupa nije valjano izvrseno.\n Provjerite datoteku rezultati.xml \n\n " << TextAttr(TextColor::WHITE);
+		SporedniIzbornik(0);
+	}
+
+}
+
 void Utakmica::OdigrajUtakmice()
 {
 	system("CLS");
@@ -351,56 +373,22 @@ void Utakmica::OdigrajUtakmice()
 	}
 }
 
-
-void Utakmica::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
+void Utakmica::SpremiPromjene(vector<Utakmica*> vRezultati)
 {
-	try {
-		Utakmica *u1 = new Utakmica(k1, k2, gd, gg);
-		auto odigranaUtakmica = from(m_vRezultati)
-			>> where([&](Utakmica const *u2)
-		{
-			return (u2->m_oKlubDomacina->DohvatiSifruKluba() == u1->m_oKlubDomacina->DohvatiSifruKluba());
-		})
-			>> where([&](Utakmica const *u2)
-		{
-			return (u2->m_oKlubGosta->DohvatiSifruKluba() == u2->m_oKlubDomacina->DohvatiSifruKluba());
-		})
-			>> to_vector();
-		if (odigranaUtakmica.size() == 1)
-		{
-				cout << "\n\t" << TextAttr(TextColor::RED) << "\tTa utakmica vec je odigrana!" << TextAttr(TextColor::WHITE);
-				SporedniIzbornik(0);
-		}
-		else
-		{
-			m_vRezultati.push_back(u1);
-			SpremiPromjene();
-		}
-	}
-	catch (int) {
-		cout << "\t\t " << TextAttr(TextColor::RED) << " \nNešto nije u redu.\nSpremanje novog klupa nije valjano izvrseno.\n Provjerite datoteku rezultati.xml \n\n " << TextAttr(TextColor::WHITE);
-		SporedniIzbornik(0);
-	}
-
-}
-
-
-void Utakmica::SpremiPromjene()
-{
-	auto vSortiraneUtakmice = from(m_vRezultati)
+	auto vSortiraneUtakmice = from(vRezultati)
 		>> orderby_ascending([&](Utakmica const *u) {  return u->DohvatiSifruKluba(); })
 		>> to_vector();
-	m_vRezultati = vSortiraneUtakmice;
+	vRezultati = vSortiraneUtakmice;
 	m_docRezultati.LoadFile("rezultati.xml");
 	m_eRezultati = m_docRezultati.FirstChildElement("Rezultati");
 	m_eRezultati->DeleteChildren();
-	for (int i = 0; i < m_vRezultati.size(); i++)
+	for (int i = 0; i < vRezultati.size(); i++)
 	{
 		XMLElement *noviRezultat = m_docRezultati.NewElement("utakmica");
-		noviRezultat->SetAttribute("klubDomacinID", (m_vRezultati[i]->m_oKlubDomacina->DohvatiSifruKluba()));
-		noviRezultat->SetAttribute("klubGostID", (m_vRezultati[i]->m_oKlubGosta->DohvatiSifruKluba()));
-		noviRezultat->SetAttribute("goloviDomacin", (m_vRezultati[i]->m_nGoloviDomacina));
-		noviRezultat->SetAttribute("goloviGost", (m_vRezultati[i]->m_nGoloviGosta));
+		noviRezultat->SetAttribute("klubDomacinID", (vRezultati[i]->m_oKlubDomacina->DohvatiSifruKluba()));
+		noviRezultat->SetAttribute("klubGostID", (vRezultati[i]->m_oKlubGosta->DohvatiSifruKluba()));
+		noviRezultat->SetAttribute("goloviDomacin", (vRezultati[i]->m_nGoloviDomacina));
+		noviRezultat->SetAttribute("goloviGost", (vRezultati[i]->m_nGoloviGosta));
 		m_eRezultati->LinkEndChild(noviRezultat);
 	}
 	m_docRezultati.SaveFile("rezultati.xml");

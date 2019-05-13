@@ -16,7 +16,7 @@ void UlazUProgram()
 	system("CLS");
 	string sPath = "";
 	string sLine = "";
-	sPath = "C:\\Users\\Korisnik\\Desktop\\hnl dobrodosli\\dobrodosli.txt";
+	sPath = "hnl_dobrodosli.txt";
 	ifstream oDatoteka(sPath);
 	if (oDatoteka.is_open())
 	{
@@ -41,7 +41,7 @@ void NormalniFont()
 	cfi.cbSize = sizeof(cfi);
 	cfi.nFont = 0;
 	cfi.dwFontSize.X = 0;                   // sirina slova
-	cfi.dwFontSize.Y = 24;                  // visina
+	cfi.dwFontSize.Y = 28;                  // visina
 	cfi.FontFamily = FF_MODERN;
 	cfi.FontWeight = FW_BOLD;
 	wcscpy_s(cfi.FaceName, L"Consolas"); //font

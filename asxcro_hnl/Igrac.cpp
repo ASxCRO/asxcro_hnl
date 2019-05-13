@@ -26,12 +26,6 @@ int Igrac::DohvatiSifruIgraca() const
 	return m_nSifraIgraca;
 }
 
-
-int Igrac::DohvatiSifruKluba() const
-{
-	return m_nSifraKluba;
-}
-
 string Igrac::DohvatiImeIgraca() 
 {
 	return m_sImeIgraca;
@@ -49,6 +43,13 @@ int Igrac::DohvatiGodinuRodjenja()
 
 void Igrac::UcitavanjeIgraci()
 {
+	if (m_vIgraci.size() > 0)
+	{
+		for (int i = 0; i < m_vIgraci.size(); i++)
+		{
+			delete m_vIgraci[i];
+		}
+	}
 	m_docIgraci.LoadFile("igraci.xml");
 	m_eIgraci = m_docIgraci.FirstChildElement("Igraci");
 	XMLElement *eIgrac;
@@ -170,7 +171,7 @@ repeat:
 	}
 	m_vIgraci.push_back(new Igrac(nSifraIgraca, sImeIgraca, sPrezimeIgraca, nGodinaRodjenja, nSifraKluba));
 	try {
-		SpremiPromjene();
+		SpremiPromjene(m_vIgraci);
 		cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste dodali novog igraca!" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(3);
 	}
@@ -252,7 +253,7 @@ void Igrac::ObrisiIgraca()
 		{
 			m_vIgraci = igraciBezOdabranog;
 			try {
-				SpremiPromjene();
+				SpremiPromjene(m_vIgraci);
 				cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste obrisali igraca!" << TextAttr(TextColor::WHITE);
 				SporedniIzbornik(4);
 			}
@@ -370,7 +371,7 @@ void Igrac::PrijelazIgraca()
 				igraciBezOdabranog.push_back(odabraniIgrac[0]);
 				m_vIgraci = igraciBezOdabranog;
 				try {
-					SpremiPromjene();
+					SpremiPromjene(m_vIgraci);
 					cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste napravili prijelaz igraca!" << TextAttr(TextColor::WHITE);
 					SporedniIzbornik(5);
 				}
@@ -383,23 +384,23 @@ void Igrac::PrijelazIgraca()
 	}
 }
 
-void Igrac::SpremiPromjene()
+void Igrac::SpremiPromjene(vector<Igrac*> vIgraci)
 {
-	auto vSortiraniIgraci = from(m_vIgraci)
+	auto vSortiraniIgraci = from(vIgraci)
 		>> orderby_ascending([&](Igrac const *i) {  return i->DohvatiSifruIgraca(); })
 		>> to_vector();
-	m_vIgraci = vSortiraniIgraci;
+	vIgraci = vSortiraniIgraci;
 		m_docIgraci.LoadFile("igraci.xml");
 		m_eIgraci = m_docIgraci.FirstChildElement("Igraci");
 		m_eIgraci->DeleteChildren();
 		for (int i = 0; i < m_vIgraci.size(); i++)
 		{
 			XMLElement *noviIgrac = m_docIgraci.NewElement("igrac");
-			noviIgrac->SetAttribute("klubID", (m_vIgraci[i]->DohvatiSifruKluba()));
-			noviIgrac->SetAttribute("godinaRodjenja", (m_vIgraci[i]->DohvatiGodinuRodjenja()));
-			noviIgrac->SetAttribute("prezime", (m_vIgraci[i]->DohvatiPrezimeIgraca().c_str()));
-			noviIgrac->SetAttribute("ime", (m_vIgraci[i]->DohvatiImeIgraca().c_str()));
-			noviIgrac->SetAttribute("igracID", (m_vIgraci[i]->DohvatiSifruIgraca()));
+			noviIgrac->SetAttribute("klubID", (vIgraci[i]->DohvatiSifruKluba()));
+			noviIgrac->SetAttribute("godinaRodjenja", (vIgraci[i]->DohvatiGodinuRodjenja()));
+			noviIgrac->SetAttribute("prezime", (vIgraci[i]->DohvatiPrezimeIgraca().c_str()));
+			noviIgrac->SetAttribute("ime", (vIgraci[i]->DohvatiImeIgraca().c_str()));
+			noviIgrac->SetAttribute("igracID", (vIgraci[i]->DohvatiSifruIgraca()));
 			m_eIgraci->LinkEndChild(noviIgrac);
 		}
 		m_docIgraci.SaveFile("igraci.xml");
@@ -429,10 +430,4 @@ void Igrac::PrikaziIgrace(vector<Igrac*> vIgraci)
 		t.endOfRow();
 	}
 	cout << "\t" << t;
-}
-
-
-bool Igrac::operator<(const Igrac& i1) const
-{
-	return this->m_nSifraIgraca < i1.m_nSifraIgraca;
 }

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Klubovi>
-    <klub nazivKluba="Glavonje" klubID="0" gradKluba="Glavastina"/>
-    <klub nazivKluba="ZutoZeleni" klubID="3" gradKluba="Vinkovci"/>
-    <klub nazivKluba="Croatia" klubID="4" gradKluba="Mihaljevci"/>
-    <klub nazivKluba="Pozega" klubID="5" gradKluba="Slavonija"/>
-    <klub nazivKluba="ZelenoZuti" klubID="6" gradKluba="Vukovar"/>
-    <klub nazivKluba="AnteKuku" klubID="7" gradKluba="Slatina"/>
-    <klub nazivKluba="PecenePecenke" klubID="8" gradKluba="Virovitica"/>
+  <klub nazivKluba="Glavonje" klubID="0" gradKluba="Glavastina"/>
+  <klub nazivKluba="Dinamo" klubID="1" gradKluba="Zagreb"/>
+  <klub nazivKluba="Hajduk" klubID="2" gradKluba="Split"/>
+  <klub nazivKluba="SlavenBelupo" klubID="3" gradKluba="Koprivnica"/>
+  <klub nazivKluba="MikiMaus" klubID="4" gradKluba="Vukovar"/>
+  <klub nazivKluba="ZutoZeleni" klubID="5" gradKluba="Vinkovci"/>
+  <klub nazivKluba="Croatia" klubID="6" gradKluba="Mihaljevci"/>
+  <klub nazivKluba="Pozega" klubID="7" gradKluba="Slavonija"/>
+  <klub nazivKluba="ZelenoZuti" klubID="8" gradKluba="Vukovar"/>
+  <klub nazivKluba="AnteKuku" klubID="9" gradKluba="Slatina"/>
 </Klubovi>

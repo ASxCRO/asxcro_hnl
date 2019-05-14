@@ -16,8 +16,9 @@ public:
 	int DohvatiGoloveDomacina(Klub* kd, Klub* kg);
 	int DohvatiGoloveGosta();
 	void UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg);//golovi domacin
-protected:
+	void UlazUProgram();
 	void UcitavanjeRezultati();
+protected:
 	void SpremiPromjene(vector<Utakmica*> vRezultati);
 	void OdigrajUtakmice();
 	void PrikaziRangListu();
@@ -28,6 +29,7 @@ private:
 	Klub* m_oKlubGosta;
 	int m_nGoloviDomacina;
 	int m_nGoloviGosta;
+	void NormalniFont();
 
 };
 

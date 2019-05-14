@@ -11,7 +11,6 @@ Klub::Klub(int sk, string n, string g)
 
 Klub::Klub()
 {
-	UcitavanjeKlubovi();
 }
 
 
@@ -36,6 +35,8 @@ string Klub::DohvatiGradKluba()
 void Klub::SporedniIzbornik(int b)
 {
 	Igrac* i1 = new Igrac();
+	i1->UcitavanjeKlubovi();
+	i1->UcitavanjeIgraci();
 	if (b == 1)
 	{
 		cout << "\n\n\t\tPritisnite " << TextAttr(TextColor::CYAN) << "[N]" << TextAttr(TextColor::WHITE) << " za dodavanje novog kluba.\t\n";
@@ -84,9 +85,8 @@ repeat:
 		case 119: {
 			if ((b != 6) && (b > 0))
 			{
-				Utakmica* u1 = new Utakmica(1);
-				Igrac* i1 = new Igrac();
-				Klub *k1 = new Klub();
+				cout << TextAttr(TextColor::CYAN) << "\n\t\tPricekajte.." << TextAttr(TextColor::WHITE);
+				Utakmica* u1 = new Utakmica();
 				u1->GlavniIzbornik();
 			}
 			else
@@ -104,7 +104,7 @@ repeat:
 		case 110: {
 			if (b == 1)
 			{
-				DodajKlub();
+				i1->DodajKlub();
 			}
 			else
 			{
@@ -116,7 +116,7 @@ repeat:
 		case 101: {
 			if (b == 2)
 			{
-				IzbrisiKlub();
+				i1->IzbrisiKlub();
 
 			}
 			else 
@@ -166,11 +166,12 @@ repeat:
 			if (b == 6)
 			{
 				cout << TextAttr(TextColor::CYAN) << "\n\t\tSpremanje.." << TextAttr(TextColor::WHITE);
-				Utakmica* u1 = new Utakmica();
+				Utakmica* u1 = new Utakmica(1);
+				u1->UcitavanjeRezultati();
 				Klub* k1 = u1->DohvatiKlubDomacina();
 				Klub* k2 = u1->DohvatiKlubGosta(k1);
 				int nBrojGolovaDomacina = u1->DohvatiGoloveDomacina(k1, k2);
-				int nBrojGolovaGosta= u1->DohvatiGoloveGosta();
+				int nBrojGolovaGosta = u1->DohvatiGoloveGosta();
 				u1->UnesiRezultat(k1, k2,nBrojGolovaDomacina, nBrojGolovaGosta);
 				SporedniIzbornik(6);
 			}

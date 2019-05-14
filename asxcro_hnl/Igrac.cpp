@@ -13,7 +13,6 @@ Igrac::Igrac(int s, string i, string p, int gr, int sk)
 
 Igrac::Igrac()
 {
-	UcitavanjeIgraci();
 }
 
 

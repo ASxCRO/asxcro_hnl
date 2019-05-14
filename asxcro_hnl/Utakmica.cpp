@@ -4,12 +4,14 @@
 
 Utakmica::Utakmica()
 {
+	UcitavanjeKlubovi();
+	UcitavanjeIgraci();
 	UcitavanjeRezultati();
 }
 
 Utakmica::Utakmica(int i)
 {
-	
+
 }
 
 Utakmica::Utakmica(Klub* k1, Klub* k2, int gd, int gg)
@@ -24,6 +26,43 @@ Utakmica::Utakmica(Klub* k1, Klub* k2, int gd, int gg)
 Utakmica::~Utakmica()
 {
 
+}
+
+void Utakmica::UlazUProgram()
+{
+	NormalniFont();
+	system("CLS");
+	string sPath = "";
+	string sLine = "";
+	sPath = "hnl_dobrodosli.txt";
+	ifstream oDatoteka(sPath);
+	if (oDatoteka.is_open())
+	{
+		while (getline(oDatoteka, sLine))
+		{
+			cout << TextAttr(TextColor::CYAN) << sLine << "\n";
+
+		}
+		oDatoteka.close();
+	}
+
+	Sleep(1000);
+	cout << "\n\tUcitavanje...";
+
+	GlavniIzbornik();
+}
+
+void Utakmica::NormalniFont()
+{
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(cfi);
+	cfi.nFont = 0;
+	cfi.dwFontSize.X = 0;                   // sirina slova
+	cfi.dwFontSize.Y = 28;                  // visina
+	cfi.FontFamily = FF_MODERN;
+	cfi.FontWeight = FW_BOLD;
+	wcscpy_s(cfi.FaceName, L"Consolas"); //font
+	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 }
 
 void Utakmica::GlavniIzbornik()
@@ -107,38 +146,39 @@ void Utakmica::UcitavanjeRezultati()
 	m_docRezultati.LoadFile("rezultati.xml");
 	m_eRezultati = m_docRezultati.FirstChildElement("Rezultati");
 	XMLElement *eRezultat;
+
 	for (eRezultat = m_eRezultati->FirstChildElement("utakmica"); eRezultat != NULL; eRezultat = eRezultat->NextSiblingElement())
 	{	
-		Klub *k1 = new Klub();
-		Klub *k2 = new Klub();
-		k1->m_nSifraKluba = atoi(eRezultat->Attribute("klubDomacinID"));
-		k2->m_nSifraKluba = atoi(eRezultat->Attribute("klubGostID"));
-		int nGoloviDomacina = atoi(eRezultat->Attribute("goloviDomacin"));
-		int nGoloviGosta = atoi(eRezultat->Attribute("goloviGost"));
-		Utakmica *u1 = new Utakmica(k1, k2, nGoloviDomacina, nGoloviGosta);
+		m_oKlubDomacina = new Klub();
+		m_oKlubGosta = new Klub();
+		m_oKlubDomacina->m_nSifraKluba = atoi(eRezultat->Attribute("klubDomacinID"));
+		m_oKlubGosta->m_nSifraKluba = atoi(eRezultat->Attribute("klubGostID"));
+		m_nGoloviDomacina = atoi(eRezultat->Attribute("goloviDomacin"));
+		m_nGoloviGosta = atoi(eRezultat->Attribute("goloviGost"));
+		Utakmica *u1 = new Utakmica(m_oKlubDomacina, m_oKlubGosta, m_nGoloviDomacina, m_nGoloviGosta);
 		m_vRezultati.push_back(u1);
-		if (nGoloviDomacina > nGoloviGosta)
+		if (m_nGoloviDomacina > m_nGoloviGosta)
 		{
-			k1->m_nBrojBodovaKluba = 3;
+			m_oKlubDomacina->m_nBrojBodovaKluba = 3;
 		}
-		else if (nGoloviDomacina == nGoloviGosta)
+		else if (m_nGoloviDomacina == m_nGoloviGosta)
 		{
-			k1->m_nBrojBodovaKluba = 1;
-			k2->m_nBrojBodovaKluba = 1;
+			m_oKlubDomacina->m_nBrojBodovaKluba = 1;
+			m_oKlubGosta->m_nBrojBodovaKluba = 1;
 		}
 		else
 		{
-			k2->m_nBrojBodovaKluba = 3;
+			m_oKlubGosta->m_nBrojBodovaKluba = 3;
 		}
 		for (int i = 0; i < m_vKlubovi.size(); i++)
 		{
-			if (m_vKlubovi[i]->DohvatiSifruKluba() == k1->DohvatiSifruKluba())
+			if (m_vKlubovi[i]->DohvatiSifruKluba() == m_oKlubDomacina->DohvatiSifruKluba())
 			{
-				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k1->m_nBrojBodovaKluba;
+				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + m_oKlubDomacina->m_nBrojBodovaKluba;
 			}
-			if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
+			if (m_vKlubovi[i]->DohvatiSifruKluba() == m_oKlubGosta->DohvatiSifruKluba())
 			{
-				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k2->m_nBrojBodovaKluba;
+				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + m_oKlubGosta->m_nBrojBodovaKluba;
 			}
 		}
 	}
@@ -300,12 +340,11 @@ void Utakmica::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 void Utakmica::OdigrajUtakmice()
 {
 	system("CLS");
-	cout << "mvRezultatisize(): " << m_vRezultati.size() << endl;
 	cout << TextAttr(TextColor::CYAN) << "\n\n\t\tOPCIJA: ODIGRAJ UTAKMICE\n  " << TextAttr(TextColor::WHITE);
 	cout << "\t==========================================\n";
-	if (m_vKlubovi.size() < 10)
+	if (m_vKlubovi.size() != 10)
 	{
-		cout << "\n\t" << TextAttr(TextColor::RED) << "\tDa bi se utakmice odigrale potrebno je minimalno 10 klubova!" << TextAttr(TextColor::WHITE);
+		cout << "\n\t" << TextAttr(TextColor::RED) << "\tDa bi se utakmice odigrale potrebno je tocno 10 klubova!" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(1);
 	}
 	for (int i = 0; i < m_vKlubovi.size(); i++)
@@ -353,7 +392,6 @@ void Utakmica::OdigrajUtakmice()
 			if (odigranaUtakmica.size() == 1)
 			{
 				odigraneUtakmice++;
-				cout << odigraneUtakmice << endl;
 				if (odigraneUtakmice == 90)
 				{
 					cout << "\n\t" << TextAttr(TextColor::RED) << "\tSve su utakmice odigrane!" << TextAttr(TextColor::WHITE);
@@ -376,7 +414,8 @@ void Utakmica::OdigrajUtakmice()
 void Utakmica::SpremiPromjene(vector<Utakmica*> vRezultati)
 {
 	auto vSortiraneUtakmice = from(vRezultati)
-		>> orderby_ascending([&](Utakmica const *u) {  return u->DohvatiSifruKluba(); })
+		>> orderby_ascending([&](Utakmica const *u) {  return u->m_oKlubDomacina->DohvatiSifruKluba(); })
+		>> thenby_ascending([&](Utakmica const *u) {  return u->m_oKlubGosta->DohvatiSifruKluba(); })
 		>> to_vector();
 	vRezultati = vSortiraneUtakmice;
 	m_docRezultati.LoadFile("rezultati.xml");

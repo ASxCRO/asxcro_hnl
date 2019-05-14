@@ -25,6 +25,7 @@ public:
 	void SporedniIzbornik(int b);
 	int IzaberiOpciju() const;
 	int KriviOdabir();
+	void UcitavanjeKlubovi();
 	vector <Klub*> m_vKlubovi;
 	void AzurirajKlub();
 	void PrikaziKlubove(vector<Klub*> vKlubovi);
@@ -37,7 +38,6 @@ private:
 	XMLElement *m_eKlubovi;
 	string m_sNazivKluba;
 	string m_sGradKluba;
-	void UcitavanjeKlubovi();
 	void DodajKlub();
 	void IzbrisiKlub();
 	void SpremiPromjene(vector<Klub*> vKlubovi);

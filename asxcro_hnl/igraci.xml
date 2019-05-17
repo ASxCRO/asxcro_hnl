@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Igraci>
-    <igrac klubID="4" godinaRodjenja="1999" prezime="Supan" ime="Antonio" igracID="0"/>
+    <igrac klubID="2" godinaRodjenja="1999" prezime="Supan" ime="Antonio" igracID="0"/>
     <igrac klubID="0" godinaRodjenja="1996" prezime="Maki" ime="Marko" igracID="1"/>
     <igrac klubID="0" godinaRodjenja="1995" prezime="Ivic" ime="Ivan" igracID="2"/>
     <igrac klubID="0" godinaRodjenja="1996" prezime="Jovic" ime="Josip" igracID="3"/>
@@ -11,6 +11,7 @@
     <igrac klubID="0" godinaRodjenja="1996" prezime="Krstic" ime="Kristo" igracID="8"/>
     <igrac klubID="0" godinaRodjenja="1996" prezime="Kokic" ime="Dzon" igracID="9"/>
     <igrac klubID="0" godinaRodjenja="1995" prezime="Sanader" ime="Koke" igracID="10"/>
+    <igrac klubID="0" godinaRodjenja="1996" prezime="Jakic" ime="Jakov" igracID="11"/>
     <igrac klubID="1" godinaRodjenja="1999" prezime="Mirkovic" ime="Filip" igracID="12"/>
     <igrac klubID="1" godinaRodjenja="1996" prezime="Kikic" ime="Leo" igracID="13"/>
     <igrac klubID="1" godinaRodjenja="1995" prezime="Grcic" ime="Hrvoje" igracID="14"/>
@@ -92,7 +93,7 @@
     <igrac klubID="7" godinaRodjenja="1997" prezime="Dorijan" ime="Florijan" igracID="90"/>
     <igrac klubID="7" godinaRodjenja="1996" prezime="Trnski" ime="Matija" igracID="91"/>
     <igrac klubID="7" godinaRodjenja="1999" prezime="Horvat" ime="Martin" igracID="92"/>
-    <igrac klubID="0" godinaRodjenja="1997" prezime="Dekanovic" ime="Matko" igracID="93"/>
+    <igrac klubID="7" godinaRodjenja="1997" prezime="Dekanovic" ime="Matko" igracID="93"/>
     <igrac klubID="8" godinaRodjenja="1997" prezime="Frankopan" ime="Krsto" igracID="94"/>
     <igrac klubID="8" godinaRodjenja="1997" prezime="Adolf" ime="Etan" igracID="95"/>
     <igrac klubID="8" godinaRodjenja="1995" prezime="Butan" ime="Mico" igracID="96"/>
@@ -117,5 +118,7 @@
     <igrac klubID="9" godinaRodjenja="1996" prezime="Karlic" ime="Karlo" igracID="115"/>
     <igrac klubID="9" godinaRodjenja="1999" prezime="Balic" ime="Ivano" igracID="116"/>
     <igrac klubID="9" godinaRodjenja="1999" prezime="Horvatic" ime="Jozo" igracID="117"/>
-    <igrac klubID="1" godinaRodjenja="1999" prezime="Supan" ime="Antonio" igracID="118"/>
+    <igrac klubID="6" godinaRodjenja="1999" prezime="Supan" ime="Antonio" igracID="118"/>
+    <igrac klubID="2" godinaRodjenja="1977" prezime="Supan" ime="Mario" igracID="119"/>
+    <igrac klubID="6" godinaRodjenja="1292" prezime="Supan" ime="Ivan" igracID="120"/>
 </Igraci>

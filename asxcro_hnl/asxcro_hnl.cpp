@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "Utakmica.h"
+#include "Liga.h"
 
 int main()
 {
-	Utakmica* u1 = new Utakmica();
-	u1->UlazUProgram();
+	Liga* HNL = new Liga();
+	HNL->UlazUProgram();
 }
 
 

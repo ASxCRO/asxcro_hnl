@@ -2,7 +2,7 @@
 #include "Liga.h"
 
 
-Liga::Liga()
+Liga::Liga() // Pri konstrukciji ucitavamo bazu u vektore
 {
 	UcitavanjeKlubovi();
 	UcitavanjeIgraci();
@@ -13,6 +13,9 @@ Liga::~Liga()
 {
 }
 
+// -------------------------------------------------------------------------
+// Utility class function
+// -------------------------------------------------------------------------
 void Liga::UlazUProgram()
 {
 	UvecajFont();
@@ -82,7 +85,6 @@ repeat:
 		int nGoloviDomacina = DohvatiGoloveDomacina(klubDomacin, klubGost);
 		int nGoloviGosta = DohvatiGoloveGosta();
 		UnesiRezultat(klubDomacin, klubGost, nGoloviDomacina, nGoloviGosta);
-		delete klubDomacin, klubGost;
 		SporedniIzbornik(6);
 		break;
 	}
@@ -264,9 +266,9 @@ repeat:
 int  Liga::IzaberiOpciju() const
 {
 	int a = 0;
-	bool keepGoing = true;
+	bool nastaviPetlju = true;
 	char key = ' ';
-	while (keepGoing)
+	while (nastaviPetlju)
 	{
 		cout << "\n\t\tVas izbor: ";
 		while (_kbhit() == 0) {
@@ -278,7 +280,7 @@ int  Liga::IzaberiOpciju() const
 			else {
 				a = int(key) - 48;
 			}
-			keepGoing = false;
+			nastaviPetlju = false;
 			break;
 		}
 		return a;
@@ -313,9 +315,11 @@ void Liga::FullScreen()
 	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0);
 }
 
+// -------------------------------------------------------------------------
+// Ucitavanje u vektore
+// -------------------------------------------------------------------------
 void Liga::UcitavanjeKlubovi()
 {
-	m_vKlubovi.clear();
 	m_docKlubovi.LoadFile("klubovi.xml");
 	m_eKlubovi = m_docKlubovi.FirstChildElement("Klubovi");
 	XMLElement *eKlub;
@@ -332,7 +336,6 @@ void Liga::UcitavanjeKlubovi()
 
 void Liga::UcitavanjeIgraci()
 {
-	m_vIgraci.clear();
 	m_docIgraci.LoadFile("igraci.xml");
 	m_eIgraci = m_docIgraci.FirstChildElement("Igraci");
 	XMLElement *eIgrac;
@@ -358,7 +361,6 @@ void Liga::UcitavanjeIgraci()
 
 void Liga::UcitavanjeRezultati()
 {
-	m_vRezultati.clear();
 	m_docRezultati.LoadFile("rezultati.xml");
 	m_eRezultati = m_docRezultati.FirstChildElement("Rezultati");
 	XMLElement *eRezultat;
@@ -372,7 +374,7 @@ void Liga::UcitavanjeRezultati()
 		int nGoloviGosta = atoi(eRezultat->Attribute("goloviGost"));
 		Utakmica *u1 = new Utakmica(k1, k2, nGoloviDomacina, nGoloviGosta);
 		m_vRezultati.push_back(u1);
-		if (nGoloviDomacina > nGoloviGosta)
+		if (nGoloviDomacina > nGoloviGosta) //Dohvacanje broja bodova kluba na rang listi
 		{
 			k1->m_nBrojBodovaKluba = 3;
 		}
@@ -399,12 +401,15 @@ void Liga::UcitavanjeRezultati()
 	}
 }
 
+// -------------------------------------------------------------------------
+// Zapisivanje u XML
+// -------------------------------------------------------------------------
 void Liga::SpremiPromjene(vector<Klub*> vKlubovi)
 {
-	auto vPoredaniKlubovi = from(vKlubovi)
-		>> orderby_ascending([&](Klub const *klub) {  return klub->DohvatiSifruKluba(); })
-		>> to_vector();
-	vKlubovi = vPoredaniKlubovi;
+	sort(vKlubovi.begin(), vKlubovi.end(), [](const Klub *lhs, const Klub *rhs)
+		{
+			return lhs->DohvatiSifruKluba() < rhs->DohvatiSifruKluba();
+		});
 	m_eKlubovi->DeleteChildren();
 	for (int i = 0; i < vKlubovi.size(); i++)
 	{
@@ -415,7 +420,6 @@ void Liga::SpremiPromjene(vector<Klub*> vKlubovi)
 		m_eKlubovi->LinkEndChild(noviKlub);
 	}
 	m_docKlubovi.SaveFile("klubovi.xml");
-	vPoredaniKlubovi.clear();
 }
 
 void Liga::SpremiPromjene(vector<Igrac*> vIgraci)
@@ -438,7 +442,6 @@ void Liga::SpremiPromjene(vector<Igrac*> vIgraci)
 		m_eIgraci->LinkEndChild(noviIgrac);
 	}
 	m_docIgraci.SaveFile("igraci.xml");
-	vPoredaniIgraci.clear();
 }
 
 void Liga::SpremiPromjene(vector<Utakmica*> vRezultati)
@@ -462,9 +465,11 @@ void Liga::SpremiPromjene(vector<Utakmica*> vRezultati)
 		m_eRezultati->LinkEndChild(noviRezultat);
 	}
 	m_docRezultati.SaveFile("rezultati.xml");
-	vSortiraneUtakmice.clear();
 }
 
+// -------------------------------------------------------------------------
+// Funkcije implementirane za manipulaciju Klubova
+// -------------------------------------------------------------------------
 void Liga::AzurirajKlub()
 {
 	system("CLS");
@@ -505,6 +510,15 @@ void Liga::DodajKlub()
 	}
 	else
 	{
+		sort(m_vKlubovi.begin(), m_vKlubovi.end(), [](const Klub * lhs, const Klub * rhs)
+			{
+				return lhs->DohvatiSifruKluba() < rhs->DohvatiSifruKluba();
+			});
+		for (int n = 0; n < m_vKlubovi.size(); n++)
+		{
+			cout << m_vKlubovi[n]->DohvatiSifruKluba() << endl;
+		}
+
 		int nSifraKluba;
 		string sNazivKluba;
 		string sGradKluba;
@@ -515,7 +529,7 @@ void Liga::DodajKlub()
 			nSifraKluba = 0;
 			goto korak;
 		}
-		for (int n = 0; n < m_vKlubovi.size(); n++)
+		for (int n = 0; n < m_vKlubovi.size(); n++) // petlja za automatski odabir sifre kluba
 		{
 			if (i >= m_vKlubovi.size() - 1)
 			{
@@ -539,7 +553,7 @@ void Liga::DodajKlub()
 		cout << "\tUnesite grad kluba: ";
 		getline(cin, sGradKluba);
 		m_vKlubovi.push_back(new Klub(nSifraKluba, sNazivKluba, sGradKluba));
-		try {
+		try { // uhvati iznimku ako se ovaj kod nemoze izvrsiti
 			SpremiPromjene(m_vKlubovi);
 			cout << TextAttr(TextColor::CYAN) << "\n\n\tUspjesno ste dodali novi klub!" << TextAttr(TextColor::WHITE);
 			SporedniIzbornik(1);
@@ -568,9 +582,7 @@ void Liga::IzbrisiKlub()
 	PrikaziKlubove(m_vKlubovi);//tablica
 	int a = IzaberiOpciju();
 
-	//cpplinq
-	//brisanje kluba
-	auto kluboviBezOdabranog = from(m_vKlubovi)
+	auto kluboviBezOdabranog = from(m_vKlubovi)	//brisanje kluba
 		>> where([&](Klub const *klub)
 			{
 				return (klub->DohvatiSifruKluba() != a);
@@ -582,8 +594,7 @@ void Liga::IzbrisiKlub()
 		)
 		>> to_vector();
 
-	//brisanje igraca
-	auto igraciBezOdabranih = from(m_vIgraci)
+	auto igraciBezOdabranih = from(m_vIgraci)	//brisanje igraca odabranog kluba
 		>> where([&](Igrac const *igracina)
 			{
 				return (igracina->DohvatiSifruKluba() != a);
@@ -595,6 +606,16 @@ void Liga::IzbrisiKlub()
 		)
 		>> to_vector();
 
+	auto rezultatiBezOdabranogKluba = from(m_vRezultati)	//brisanje rezultata odabranog kluba
+		>> where([&](Utakmica const* u1)
+			{
+				return (u1->m_oKlubDomacina->DohvatiSifruKluba() != a);
+			})
+		>> where([&](Utakmica const* u1)
+			{
+				return (u1->m_oKlubGosta->DohvatiSifruKluba() != a);
+			})
+		>> to_vector();
 	if (m_vKlubovi.size() == kluboviBezOdabranog.size())
 	{
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tKlub sa unesenom sifrom ne postoji!\n" << TextAttr(TextColor::WHITE);
@@ -603,15 +624,18 @@ void Liga::IzbrisiKlub()
 	{
 		m_vKlubovi = kluboviBezOdabranog;
 		m_vIgraci = igraciBezOdabranih;
-		this->SpremiPromjene(m_vKlubovi);
+		m_vRezultati = rezultatiBezOdabranogKluba;
+		SpremiPromjene(m_vKlubovi);
 		SpremiPromjene(m_vIgraci);
+		SpremiPromjene(m_vRezultati);
 		cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste izbrisali igrace kluba i klub pod sifrom " << a << TextAttr(TextColor::WHITE);
 	}
-	kluboviBezOdabranog.clear();
-	igraciBezOdabranih.clear();
 	SporedniIzbornik(2);
 }
 
+// -------------------------------------------------------------------------
+// Funkcije implementirane za manipulaciju Igraca
+// -------------------------------------------------------------------------
 void Liga::AzurirajIgrace()
 {
 	system("CLS");
@@ -656,8 +680,12 @@ void Liga::DodajIgraca()
 	}
 	else
 	{
+		sort(m_vIgraci.begin(), m_vIgraci.end(), [](const Igrac * lhs, const Igrac * rhs)
+			{
+				return lhs->DohvatiSifruIgraca() < rhs->DohvatiSifruIgraca();
+			});
 		int i = 0;
-		for (int n = 0; n <= m_vIgraci.size(); n++)
+		for (int n = 0; n <= m_vIgraci.size(); n++) // petlja za pronalazak slobodne sifre za igraca
 		{
 			if (i >= m_vIgraci.size() - 1)
 			{
@@ -686,20 +714,20 @@ void Liga::DodajIgraca()
 	PrikaziKlubove(m_vKlubovi); // tablica
 	int a = IzaberiOpciju();
 repeat:
-	//cpplinq
-	auto odabraniKlub = from(m_vKlubovi)
+	auto odabraniKlub = from(m_vKlubovi)	//klub u kojeg zelimo dodati igraca
 		>> where([&](Klub const *klub)
 			{
 				return (klub->DohvatiSifruKluba() == a);
 			})
-		>> select([&](Klub const *klub)
-			{
-				return klub->DohvatiSifruKluba();
-			})
 		>> to_vector();
 	if (odabraniKlub.size() == 1)
 	{
-		nSifraKluba = odabraniKlub[0];
+		nSifraKluba = odabraniKlub[0]->DohvatiSifruKluba();
+		for (int j = 0; j < m_vKlubovi.size(); j++) // dodaj igraca u klub brojcano
+		{
+				if (odabraniKlub[0]->DohvatiSifruKluba() == m_vKlubovi[j]->DohvatiSifruKluba())
+					m_vKlubovi[j]->m_nBrojIgracaKluba++;
+		}
 	}
 	else
 	{
@@ -708,10 +736,9 @@ repeat:
 		goto repeat;
 	}
 	m_vIgraci.push_back(new Igrac(nSifraIgraca, sImeIgraca, sPrezimeIgraca, nGodinaRodjenja, nSifraKluba));
-	try {
+	try { // uhvati iznimku ako se ovaj kod nemoze izvrsiti
 		SpremiPromjene(m_vIgraci);
 		cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste dodali novog igraca!" << TextAttr(TextColor::WHITE);
-		odabraniKlub.clear();
 		SporedniIzbornik(3);
 	}
 	catch (int) {
@@ -733,12 +760,10 @@ void Liga::ObrisiIgraca()
 	}
 
 	cout << TextAttr(TextColor::CYAN) << "\tOdaberite sifru kluba iz kojeg zelite obrisati igraca\n  " << TextAttr(TextColor::WHITE);
-	PrikaziKlubove(m_vKlubovi);//tablica
+	PrikaziKlubove(m_vKlubovi); //tablica
 	int a = IzaberiOpciju();
 
-	//cpplinq
-	//select klub
-	auto odabraniKlub = from(m_vKlubovi)
+	auto odabraniKlub = from(m_vKlubovi)	//klub iz kojeg zelimo obrisati igraca
 		>> where([&](Klub const *klub)
 			{
 				return (klub->DohvatiSifruKluba() == a);
@@ -755,8 +780,7 @@ void Liga::ObrisiIgraca()
 		system("CLS");
 		cout << "\n\t\tOdabrali ste klub: " << TextAttr(TextColor::CYAN) << odabraniKlub[0]->DohvatiNazivKluba() << "\n\n" << TextAttr(TextColor::WHITE);
 		cout << TextAttr(TextColor::CYAN) << "\tOdaberite sifru igraca kojeg zelite obrisati\n  " << TextAttr(TextColor::WHITE);
-		//select igrac
-		auto igraciOdabranogKluba = from(m_vIgraci)
+		auto igraciOdabranogKluba = from(m_vIgraci)	
 			>> where([&](Igrac const *igracina)
 				{
 					return (igracina->DohvatiSifruKluba() == odabraniKlub[0]->DohvatiSifruKluba());
@@ -767,8 +791,8 @@ void Liga::ObrisiIgraca()
 				}
 			)
 			>> to_vector();
-		PrikaziIgrace(igraciOdabranogKluba);//tablica
-		int b;
+		PrikaziIgrace(igraciOdabranogKluba); //tablica
+		int b; //odabir igraca kojeg zelimo obrisati
 		cout << "\n\t\tVas izbor: ";
 		cin >> b;
 		auto odabraniIgrac = from(igraciOdabranogKluba)
@@ -777,7 +801,7 @@ void Liga::ObrisiIgraca()
 					return (igracina->DohvatiSifruIgraca() == b);
 				})
 			>> to_vector();
-		auto igraciBezOdabranog = from(m_vIgraci)
+		auto igraciBezOdabranog = from(m_vIgraci) 
 			>> where([&](Igrac const *igracina)
 				{
 					return (igracina->DohvatiSifruIgraca() != b);
@@ -791,13 +815,14 @@ void Liga::ObrisiIgraca()
 		else
 		{
 			m_vIgraci = igraciBezOdabranog;
-			try {
+			for (int j = 0; j < m_vKlubovi.size(); j++) // smanji broj igraca u klubu iz kojeg smo obrisali igraca
+			{
+				if (odabraniKlub[0]->DohvatiSifruKluba() == m_vKlubovi[j]->DohvatiSifruKluba())
+					m_vKlubovi[j]->m_nBrojIgracaKluba--;
+			}
+			try { // catch exeption if this code cannot run
 				SpremiPromjene(m_vIgraci);
 				cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste obrisali igraca!" << TextAttr(TextColor::WHITE);
-				odabraniKlub.clear();
-				igraciOdabranogKluba.clear();
-				igraciBezOdabranog.clear();
-				odabraniIgrac.clear();
 				SporedniIzbornik(4);
 			}
 			catch (int) {
@@ -827,21 +852,19 @@ void Liga::PrijelazIgraca()
 	PrikaziKlubove(m_vKlubovi);//tablica
 	int a = IzaberiOpciju();
 
-	//cpplinq
-	//select klub
-	auto odabraniKlub = from(m_vKlubovi)
+	auto odabraniKlubDomacin = from(m_vKlubovi) // it kojeg kluba zelite prebaciti igraca
 		>> where([&](Klub const *klub)
 			{
 				return (klub->DohvatiSifruKluba() == a);
 			})
 		>> to_vector();
-	auto kluboviBezOdabranog = from(m_vKlubovi)
+	auto kluboviBezOdabranog = from(m_vKlubovi) // svi klubovi bez proslo odabranog
 		>> where([&](Klub const *klub)
 			{
 				return (klub->DohvatiSifruKluba() != a);
 			})
 		>> to_vector();
-	if (odabraniKlub.size() == 0)
+	if (odabraniKlubDomacin.size() == 0)
 	{
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tKlub sa unesenom sifrom ne postoji!\n" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(5);
@@ -849,13 +872,12 @@ void Liga::PrijelazIgraca()
 	else
 	{
 		system("CLS");
-		cout << "\n\t\tOdabrali ste klub: " << TextAttr(TextColor::CYAN) << odabraniKlub[0]->DohvatiNazivKluba() << "\n\n" << TextAttr(TextColor::WHITE);
+		cout << "\n\t\tOdabrali ste klub: " << TextAttr(TextColor::CYAN) << odabraniKlubDomacin[0]->DohvatiNazivKluba() << "\n\n" << TextAttr(TextColor::WHITE);
 		cout << TextAttr(TextColor::CYAN) << "\tOdaberite sifru igraca na kojem zelite napraviti prijelaz\n  " << TextAttr(TextColor::WHITE);
-		//select igrac
-		auto igraciOdabranogKluba = from(m_vIgraci)
+		auto igraciOdabranogKluba = from(m_vIgraci) //odabir igraca iz odabranog kluba
 			>> where([&](Igrac const *igracina)
 				{
-					return (igracina->DohvatiSifruKluba() == odabraniKlub[0]->DohvatiSifruKluba());
+					return (igracina->DohvatiSifruKluba() == odabraniKlubDomacin[0]->DohvatiSifruKluba());
 				})
 			>> orderby_ascending([&](Igrac const *igracina)
 				{
@@ -868,13 +890,13 @@ void Liga::PrijelazIgraca()
 		cout << "\n\t\tVas izbor: ";
 		cin >> b;
 
-		auto odabraniIgrac = from(igraciOdabranogKluba)
+		auto odabraniIgrac = from(igraciOdabranogKluba) // odaberi igraca kojeg zeli prebaciti
 			>> where([&](Igrac const *igracina)
 				{
 					return (igracina->DohvatiSifruIgraca() == b);
 				})
 			>> to_vector();
-		auto igraciBezOdabranog = from(m_vIgraci)
+		auto igraciBezOdabranog = from(m_vIgraci) // svi igraci osim proslo odabranog
 			>> where([&](Igrac const *igracina)
 				{
 					return (igracina->DohvatiSifruIgraca() != b);
@@ -893,32 +915,36 @@ void Liga::PrijelazIgraca()
 			PrikaziKlubove(kluboviBezOdabranog);//tablica
 			int a = IzaberiOpciju();
 
-			//cpplinq
-			//select klub
-			auto odabraniKlub = from(kluboviBezOdabranog)
+			auto odabraniKlubGost = from(kluboviBezOdabranog) // klub U kojeg zelim prebaciti odabranog igraca
 				>> where([&](Klub const *klub)
 					{
 						return (klub->DohvatiSifruKluba() == a);
 					})
 				>> to_vector();
-			if (odabraniKlub.size() == 0)
+			if (odabraniKlubGost.size() == 0)
 			{
 				cout << "\n\t" << TextAttr(TextColor::RED) << "\tKlub sa unesenom sifrom ne postoji!" << TextAttr(TextColor::WHITE);
 				SporedniIzbornik(5);
 			}
 			else
 			{
-				odabraniIgrac[0]->m_nSifraKluba = odabraniKlub[0]->DohvatiSifruKluba();
+				for (int j = 0; j < m_vKlubovi.size(); j++) //oduzmi igraca kojeg prebacujemo klubu iz kojeg zelimo prebaciti
+				{
+					if (odabraniKlubDomacin[0]->DohvatiSifruKluba() == m_vKlubovi[j]->DohvatiSifruKluba())
+						m_vKlubovi[j]->m_nBrojIgracaKluba--;
+				}			
+				for (int j = 0; j < m_vKlubovi.size(); j++) //oduzmi igraca kojeg prebacujemo klubu u kojeg zelimo prebaciti
+				{
+					if (odabraniKlubGost[0]->DohvatiSifruKluba() == m_vKlubovi[j]->DohvatiSifruKluba())
+						m_vKlubovi[j]->m_nBrojIgracaKluba++;
+				}
+				odabraniIgrac[0]->m_nSifraKluba = odabraniKlubGost[0]->DohvatiSifruKluba();
 				igraciBezOdabranog.push_back(odabraniIgrac[0]);
 				m_vIgraci = igraciBezOdabranog;
-				try {
+
+				try { // and catch it if code isnt right
 					SpremiPromjene(m_vIgraci);
 					cout << TextAttr(TextColor::CYAN) << "\n\n\t\tUspjesno ste napravili prijelaz igraca!" << TextAttr(TextColor::WHITE);
-					odabraniIgrac.clear();
-					odabraniKlub.clear();
-					kluboviBezOdabranog.clear();
-					igraciOdabranogKluba.clear();
-					igraciBezOdabranog.clear();
 					SporedniIzbornik(5);
 				}
 				catch (int) {
@@ -930,6 +956,9 @@ void Liga::PrijelazIgraca()
 	}
 }
 
+// -------------------------------------------------------------------------
+// Funkcije implementirane za manipulaciju Utakmica
+// -------------------------------------------------------------------------
 Klub* Liga::DohvatiKlubDomacina()
 {
 	system("CLS");
@@ -938,8 +967,7 @@ Klub* Liga::DohvatiKlubDomacina()
 	cout << TextAttr(TextColor::CYAN) << "\tOdaberite sifru kluba domacina\n  " << TextAttr(TextColor::WHITE);
 	PrikaziKlubove(m_vKlubovi);//tablica
 	int a = IzaberiOpciju();
-	//cpplinq
-	//select klub
+
 	auto odabraniKlubDomacin = from(m_vKlubovi)
 		>> where([&](Klub const *klub)
 			{
@@ -954,13 +982,11 @@ Klub* Liga::DohvatiKlubDomacina()
 	else if (odabraniKlubDomacin[0]->m_nBrojIgracaKluba < 11)
 	{
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tKlub treba imati minimalno 11 igraca kako bi se utakmica odigrala.\n" << TextAttr(TextColor::WHITE);
-		odabraniKlubDomacin.clear();
 		SporedniIzbornik(3);
 	}
 	else
 	{
 		return odabraniKlubDomacin[0];
-		odabraniKlubDomacin.clear();
 	}
 }
 
@@ -980,8 +1006,6 @@ Klub* Liga::DohvatiKlubGosta(Klub* kd)
 	PrikaziKlubove(kluboviBezDomacina);//tablica
 	int a = IzaberiOpciju();
 
-	//cpplinq
-	//select klub
 	auto odabraniKlubGost = from(kluboviBezDomacina)
 		>> where([&](Klub const *klub)
 			{
@@ -994,7 +1018,7 @@ Klub* Liga::DohvatiKlubGosta(Klub* kd)
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tKlub sa unesenom sifrom ne postoji!" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(6);
 	}
-	else if (odabraniKlubGost[0]->m_nBrojIgracaKluba < 11)
+	else if (odabraniKlubGost[0]->m_nBrojIgracaKluba < 11) // provjeri broj igraca kluba
 	{
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tKlub treba imati minimalno 11 igraca kako bi se utakmica odigrala.\n" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(3);
@@ -1002,7 +1026,7 @@ Klub* Liga::DohvatiKlubGosta(Klub* kd)
 	else
 	{
 		Klub* klubGost = odabraniKlubGost[0];
-		auto odigranaUtakmica = from(m_vRezultati)
+		auto odigranaUtakmica = from(m_vRezultati)// provjeri je li utakmica odigrana
 			>> where([&](Utakmica const *u1)
 				{
 					return (u1->m_oKlubDomacina->DohvatiSifruKluba() == kd->DohvatiSifruKluba());
@@ -1012,19 +1036,13 @@ Klub* Liga::DohvatiKlubGosta(Klub* kd)
 					return (u1->m_oKlubGosta->DohvatiSifruKluba() == klubGost->DohvatiSifruKluba());
 				})
 			>> to_vector();
-		if (odigranaUtakmica.size() == 1)
+		if (odigranaUtakmica.size() == 1) 
 		{
 			cout << "\n\t" << TextAttr(TextColor::RED) << "\tTa utakmica vec je odigrana!" << TextAttr(TextColor::WHITE);
-			kluboviBezDomacina.clear();
-			odabraniKlubGost.clear();
-			odigranaUtakmica.clear();
 			SporedniIzbornik(6);
 		}
 		else
 		{
-			kluboviBezDomacina.clear();
-			odabraniKlubGost.clear();
-			odigranaUtakmica.clear();
 			return klubGost;
 		}
 	}
@@ -1055,33 +1073,35 @@ int Liga::DohvatiGoloveGosta()
 
 void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 {
-	try {
+	try { // ulovi iznimku koja moze biti u ovom bloku
+		int nBrojBodovaDomacina = 0;
+		int nBrojBodovaGosta = 0;
 		if (gd > gg)
 		{
-			k1->m_nBrojBodovaKluba = 3;
+			nBrojBodovaDomacina = 3;
 		}
 		else if (gd == gg)
 		{
-			k1->m_nBrojBodovaKluba = 1;
-			k2->m_nBrojBodovaKluba = 1;
+			nBrojBodovaDomacina = 1;
+			nBrojBodovaGosta = 1;
 		}
 		else
 		{
-			k2->m_nBrojBodovaKluba = 3;
+			nBrojBodovaGosta = 3;
 		}
-		for (int i = 0; i < m_vKlubovi.size(); i++)
+		for (int i = 0; i < m_vKlubovi.size(); i++) // zbroji bodove
 		{
 			if (m_vKlubovi[i]->DohvatiSifruKluba() == k1->DohvatiSifruKluba())
 			{
-				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k1->m_nBrojBodovaKluba;
+				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaDomacina;
 			}
 			if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
 			{
-				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k2->m_nBrojBodovaKluba;
+				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaGosta;
 			}
 		}
 		Utakmica *u1 = new Utakmica(k1, k2, gd, gg);
-		auto odigranaUtakmica = from(m_vRezultati)
+		auto odigranaUtakmica = from(m_vRezultati) // provjeri je li utakmica odigrana
 			>> where([&](Utakmica const *u2)
 				{
 					return (u2->m_oKlubDomacina->DohvatiSifruKluba() == u1->m_oKlubDomacina->DohvatiSifruKluba());
@@ -1101,7 +1121,7 @@ void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 			m_vRezultati.push_back(u1);
 			SpremiPromjene(m_vRezultati);
 		}
-		odigranaUtakmica.clear();
+
 	}
 	catch (int) {
 		cout << "\t\t " << TextAttr(TextColor::RED) << " \nNešto nije u redu.\nSpremanje novog klupa nije valjano izvrseno.\n Provjerite datoteku rezultati.xml \n\n " << TextAttr(TextColor::WHITE);
@@ -1115,28 +1135,28 @@ void Liga::OdigrajUtakmice()
 	system("CLS");
 	cout << TextAttr(TextColor::CYAN) << "\n\n\t\tOPCIJA: ODIGRAJ UTAKMICE\n  " << TextAttr(TextColor::WHITE);
 	cout << "\t==========================================\n";
-	if (m_vKlubovi.size() != 10)
+	if (m_vKlubovi.size() != 10) // provjeri broj klubova
 	{
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tDa bi se utakmice odigrale potrebno je tocno 10 klubova!" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(1);
 	}
 	for (int i = 0; i < m_vKlubovi.size(); i++)
 	{
-		if (m_vKlubovi[i]->m_nBrojIgracaKluba < 11)
+		if (m_vKlubovi[i]->m_nBrojIgracaKluba < 11) // provjeri broj igraca u klubovima
 		{
 			cout << "\n\t" << TextAttr(TextColor::RED) << "\tDa bi se utakmice odigrale potrebno je minimalno 11 igraca u svakom klubu!" << TextAttr(TextColor::WHITE);
 			cout << "\n\t" << "\tKlub: " << TextAttr(TextColor::CYAN) << m_vKlubovi[i]->DohvatiNazivKluba() << TextAttr(TextColor::WHITE) << " nema dovoljno igraca.";
 			SporedniIzbornik(3);
 		}
 	}
-	if (m_vRezultati.size() == 90)
+	if (m_vRezultati.size() == 90) // provjeri jesu sve utakmice odigrane
 	{
 		cout << "\n\t" << TextAttr(TextColor::RED) << "\tSve su utakmice odigrane!" << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(7);
 	}
 	cout << TextAttr(TextColor::CYAN) << "\t\tOdigravanje utakmica.Pricekajte...\n  " << TextAttr(TextColor::WHITE);
 	int odigraneUtakmice = 0;
-	for (int j = 0; j < m_vKlubovi.size(); j++)
+	for (int j = 0; j < m_vKlubovi.size(); j++) // svaki klub igra sa svakim klubom osim sebe samog, vrijedi za gostovanje i kad su domacini
 	{
 		Klub* klubDomacina = m_vKlubovi[j];
 		auto kluboviUGostima = from(m_vKlubovi)
@@ -1148,9 +1168,9 @@ void Liga::OdigrajUtakmice()
 		for (int i = 0; i < kluboviUGostima.size(); i++)
 		{
 			Klub* klubGosta = kluboviUGostima[i];
-			int nGoloviDomacina = rand() % 5;
-			int nGoloviGosta = rand() % 5;
-			auto odigranaUtakmica = from(m_vRezultati)
+			int nGoloviDomacina = rand() % 7;
+			int nGoloviGosta = rand() % 7;
+			auto odigranaUtakmica = from(m_vRezultati) // provjeri je li utakmica odigrana
 				>> where([&](Utakmica const *u1)
 					{
 						return (u1->m_oKlubDomacina->DohvatiSifruKluba() == klubDomacina->DohvatiSifruKluba());
@@ -1175,8 +1195,6 @@ void Liga::OdigrajUtakmice()
 				if (m_vRezultati.size() == 90)
 				{
 					cout << TextAttr(TextColor::CYAN) << "\n\t\tUtakmice su uspjesno odigrane!\n  " << TextAttr(TextColor::WHITE);
-					kluboviUGostima.clear();
-					odigranaUtakmica.clear();
 					SporedniIzbornik(0);
 				}
 			}
@@ -1184,6 +1202,9 @@ void Liga::OdigrajUtakmice()
 	}
 }
 
+// -------------------------------------------------------------------------
+// TABLICE - TextTables.h
+// -------------------------------------------------------------------------
 void Liga::PrikaziKlubove(vector<Klub*> vKlubovi)
 {
 	auto vPoredaniKlubovi = from(vKlubovi)
@@ -1208,7 +1229,6 @@ void Liga::PrikaziKlubove(vector<Klub*> vKlubovi)
 		t.endOfRow();
 	}
 	cout << "\t" << t;
-	vPoredaniKlubovi.clear();
 }
 
 void Liga::PrikaziIgrace(vector<Igrac*> vIgraci)
@@ -1265,6 +1285,5 @@ void Liga::PrikaziRangListu()
 		t.endOfRow();
 	}
 	cout << "\n\t" << t;
-	vRang.clear();
 	SporedniIzbornik(7);
 }

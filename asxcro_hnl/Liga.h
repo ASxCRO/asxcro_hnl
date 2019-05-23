@@ -68,3 +68,8 @@ public:
 	void PrikaziRangListu();
 };
 
+// TINYXML2 - https://github.com/leethomason/tinyxml2
+// TEXTTABLES - https://github.com/haarcuba/cpp-text-table
+// CPPLINQ - http://www.drdobbs.com/cpp/linq-like-list-manipulation-in-c/240166882
+// keybd_ev - https://www.codeproject.com/Articles/7305/Keyboard-Events-Simulation-using-keybd-event-funct 
+

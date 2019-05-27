@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Igraci>
     <igrac klubID="0" godinaRodjenja="1999" prezime="Supan" ime="Antonio" igracID="0"/>
-    <igrac klubID="0" godinaRodjenja="1996" prezime="Maki" ime="Marko" igracID="1"/>
-    <igrac klubID="0" godinaRodjenja="1995" prezime="Ivic" ime="Ivan" igracID="2"/>
-    <igrac klubID="0" godinaRodjenja="1996" prezime="Jovic" ime="Josip" igracID="3"/>
+    <igrac klubID="9" godinaRodjenja="1999" prezime="Matic" ime="Luka" igracID="1"/>
+    <igrac klubID="0" godinaRodjenja="1999" prezime="Matic" ime="Luka" igracID="2"/>
+    <igrac klubID="0" godinaRodjenja="1998" prezime="Sikora" ime="Antonio" igracID="3"/>
     <igrac klubID="1" godinaRodjenja="1923" prezime="Licek" ime="Sabo" igracID="4"/>
-    <igrac klubID="0" godinaRodjenja="1986" prezime="Mirkic" ime="Mirko" igracID="5"/>
-    <igrac klubID="0" godinaRodjenja="1999" prezime="Matic" ime="Matija" igracID="6"/>
-    <igrac klubID="0" godinaRodjenja="1996" prezime="Jokovic" ime="Joko" igracID="7"/>
-    <igrac klubID="0" godinaRodjenja="1996" prezime="Krstic" ime="Kristo" igracID="8"/>
-    <igrac klubID="0" godinaRodjenja="1996" prezime="Kokic" ime="Dzon" igracID="9"/>
-    <igrac klubID="0" godinaRodjenja="1995" prezime="Sanader" ime="Koke" igracID="10"/>
-    <igrac klubID="0" godinaRodjenja="1996" prezime="Jakic" ime="Jakov" igracID="11"/>
+    <igrac klubID="0" godinaRodjenja="1998" prezime="Kubica" ime="Marin" igracID="5"/>
+    <igrac klubID="0" godinaRodjenja="2001" prezime="Vrba" ime="Kristinka" igracID="6"/>
+    <igrac klubID="0" godinaRodjenja="1999" prezime="Rezo" ime="Rebeka" igracID="7"/>
+    <igrac klubID="0" godinaRodjenja="1998" prezime="Supan" ime="Ivan" igracID="8"/>
+    <igrac klubID="0" godinaRodjenja="1999" prezime="Bas" ime="Keci" igracID="9"/>
+    <igrac klubID="0" godinaRodjenja="1992" prezime="Nelic" ime="Rukanela" igracID="10"/>
+    <igrac klubID="0" godinaRodjenja="1998" prezime="Balen" ime="Zvonimir" igracID="11"/>
     <igrac klubID="1" godinaRodjenja="1999" prezime="Mirkovic" ime="Filip" igracID="12"/>
     <igrac klubID="1" godinaRodjenja="1996" prezime="Kikic" ime="Leo" igracID="13"/>
     <igrac klubID="1" godinaRodjenja="1995" prezime="Grcic" ime="Hrvoje" igracID="14"/>
@@ -22,7 +22,7 @@
     <igrac klubID="1" godinaRodjenja="1996" prezime="Molic" ime="Kole" igracID="19"/>
     <igrac klubID="1" godinaRodjenja="1997" prezime="Kekin" ime="Mirko" igracID="20"/>
     <igrac klubID="1" godinaRodjenja="1999" prezime="Kekan" ime="Drazen" igracID="21"/>
-    <igrac klubID="1" godinaRodjenja="1996" prezime="Ender" ime="Kreso" igracID="22"/>
+    <igrac klubID="2" godinaRodjenja="1996" prezime="Ender" ime="Kreso" igracID="22"/>
     <igrac klubID="2" godinaRodjenja="1995" prezime="Ivanovic" ime="Crki" igracID="23"/>
     <igrac klubID="2" godinaRodjenja="1999" prezime="Strsic" ime="Jovo" igracID="24"/>
     <igrac klubID="2" godinaRodjenja="1997" prezime="Labic" ime="Dura" igracID="25"/>
@@ -62,11 +62,12 @@
     <igrac klubID="5" godinaRodjenja="1999" prezime="Banderas" ime="Antonio" igracID="59"/>
     <igrac klubID="5" godinaRodjenja="1999" prezime="Supan" ime="Antonio" igracID="60"/>
     <igrac klubID="5" godinaRodjenja="1999" prezime="Sikora" ime="Antonio" igracID="61"/>
-    <igrac klubID="1" godinaRodjenja="1998" prezime="Kubica" ime="Marin" igracID="62"/>
+    <igrac klubID="2" godinaRodjenja="1998" prezime="Kubica" ime="Marin" igracID="62"/>
     <igrac klubID="5" godinaRodjenja="1999" prezime="Marin" ime="Kubica" igracID="63"/>
     <igrac klubID="5" godinaRodjenja="1999" prezime="Bande" ime="Ana" igracID="64"/>
     <igrac klubID="5" godinaRodjenja="1999" prezime="Lol" ime="Lol" igracID="65"/>
     <igrac klubID="5" godinaRodjenja="1999" prezime="Dalje" ime="Idemo" igracID="66"/>
+    <igrac klubID="0" godinaRodjenja="1992" prezime="uku" ime="Ante" igracID="67"/>
     <igrac klubID="5" godinaRodjenja="1992" prezime="Nikako" ime="Vise" igracID="68"/>
     <igrac klubID="5" godinaRodjenja="1992" prezime="Gotovo" ime="Jel" igracID="69"/>
     <igrac klubID="6" godinaRodjenja="1999" prezime="Bodalec" ime="Stef" igracID="70"/>
@@ -119,4 +120,5 @@
     <igrac klubID="9" godinaRodjenja="1999" prezime="Horvatic" ime="Jozo" igracID="117"/>
     <igrac klubID="4" godinaRodjenja="1982" prezime="Sabo" ime="Antonio" igracID="118"/>
     <igrac klubID="5" godinaRodjenja="1992" prezime="Tip" ime="Lik" igracID="119"/>
+    <igrac klubID="0" godinaRodjenja="1993" prezime="Program" ime="Lol" igracID="120"/>
 </Igraci>

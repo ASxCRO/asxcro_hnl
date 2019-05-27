@@ -138,15 +138,8 @@ void Liga::SporedniIzbornik(int b)
 	{
 		cout << "\n\n\t\tPritisnite " << TextAttr(TextColor::CYAN) << "[U]" << TextAttr(TextColor::WHITE) << " za opciju unesi rezultat.\t\n";
 	}
-	if ((b != 6) && (b > 0))
-	{
-		cout << "\n\t\tPritisnite " << TextAttr(TextColor::CYAN) << "[W]" << TextAttr(TextColor::WHITE) << " za povratak u glavni izbornik\t\n";
-	}
-	else
-	{
-		cout << "\n\t\tPritisnite " << TextAttr(TextColor::CYAN) << "[Q]" << TextAttr(TextColor::WHITE) << " za povratak u glavni izbornik \t\n";
-	}
 
+	cout << "\n\t\tPritisnite " << TextAttr(TextColor::CYAN) << "[Q]" << TextAttr(TextColor::WHITE) << " za povratak u glavni izbornik \t\n";
 	cout << "\t\tPritisnite " << TextAttr(TextColor::CYAN) << "[X]" << TextAttr(TextColor::WHITE) << " za izlazak iz programa\t\n";
 	int a = IzaberiOpciju();
 
@@ -154,21 +147,8 @@ repeat:
 	switch (a)
 	{
 	case 113: {
-		cout << TextAttr(TextColor::CYAN) << "\n\t\tSpremanje.." << TextAttr(TextColor::WHITE);
+		cout << TextAttr(TextColor::CYAN) << "\n\t\Pricekajte.." << TextAttr(TextColor::WHITE);
 		GlavniIzbornik();
-		break;
-	}
-	case 119: {
-		if ((b != 6) && (b > 0))
-		{
-			cout << TextAttr(TextColor::CYAN) << "\n\t\tPricekajte.." << TextAttr(TextColor::WHITE);
-			GlavniIzbornik();
-		}
-		else
-		{
-			a = KriviOdabir();
-			goto repeat;
-		}
 		break;
 	}
 	case 120: {
@@ -309,10 +289,10 @@ void Liga::UvecajFont()
 
 void Liga::FullScreen()
 {
-	keybd_event(VK_MENU, 0x38, 0, 0);
-	keybd_event(VK_RETURN, 0x1c, 0, 0);
-	keybd_event(VK_RETURN, 0x1c, KEYEVENTF_KEYUP, 0);
-	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0);
+	keybd_event(VK_MENU, 0x38, 0, 0); // keybd_event flag Alt push
+	keybd_event(VK_RETURN, 0x1c, 0, 0); // Enter push
+	keybd_event(VK_RETURN, 0x1c, KEYEVENTF_KEYUP, 0); // enter release
+	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0);// Alt release
 }
 
 // -------------------------------------------------------------------------
@@ -514,10 +494,6 @@ void Liga::DodajKlub()
 			{
 				return lhs->DohvatiSifruKluba() < rhs->DohvatiSifruKluba();
 			});
-		for (int n = 0; n < m_vKlubovi.size(); n++)
-		{
-			cout << m_vKlubovi[n]->DohvatiSifruKluba() << endl;
-		}
 
 		int nSifraKluba;
 		string sNazivKluba;
@@ -933,7 +909,7 @@ void Liga::PrijelazIgraca()
 					if (odabraniKlubDomacin[0]->DohvatiSifruKluba() == m_vKlubovi[j]->DohvatiSifruKluba())
 						m_vKlubovi[j]->m_nBrojIgracaKluba--;
 				}			
-				for (int j = 0; j < m_vKlubovi.size(); j++) //oduzmi igraca kojeg prebacujemo klubu u kojeg zelimo prebaciti
+				for (int j = 0; j < m_vKlubovi.size(); j++) //dodaj igraca kojeg prebacujemo klubu u kojeg zelimo prebaciti
 				{
 					if (odabraniKlubGost[0]->DohvatiSifruKluba() == m_vKlubovi[j]->DohvatiSifruKluba())
 						m_vKlubovi[j]->m_nBrojIgracaKluba++;

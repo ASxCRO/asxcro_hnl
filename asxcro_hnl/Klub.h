@@ -12,6 +12,10 @@ public:
 	string DohvatiNazivKluba();
 	string DohvatiGradKluba();
 	int m_nSifraKluba;
+	int m_nBrojUtakmica;
+	int m_nBrojPobjeda;
+	int m_nBrojNerjesenih;
+	int m_nGolRazlika;
 	int m_nBrojBodovaKluba;
 	int m_nBrojIgracaKluba;
 private:

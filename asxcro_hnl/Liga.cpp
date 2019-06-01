@@ -362,30 +362,43 @@ void Liga::UcitavanjeRezultati()
 		int nGoloviGosta = atoi(eRezultat->Attribute("goloviGost"));
 		Utakmica *u1 = new Utakmica(k1, k2, nGoloviDomacina, nGoloviGosta);
 		m_vRezultati.push_back(u1);
-		if (nGoloviDomacina > nGoloviGosta) //Dohvacanje broja bodova kluba na rang listi
+		if (nGoloviDomacina > nGoloviGosta)
 		{
 			k1->m_nBrojBodovaKluba = 3;
+			k1->m_nBrojPobjeda = 1;
 		}
 		else if (nGoloviDomacina == nGoloviGosta)
 		{
 			k1->m_nBrojBodovaKluba = 1;
 			k2->m_nBrojBodovaKluba = 1;
+			k1->m_nBrojNerjesenih = 1;
+			k2->m_nBrojNerjesenih = 1;
 		}
 		else
 		{
 			k2->m_nBrojBodovaKluba = 3;
+			k2->m_nBrojPobjeda = 1;
 		}
-		for (int i = 0; i < m_vKlubovi.size(); i++)
+		for (int i = 0; i < m_vKlubovi.size(); i++) // zbroji golove i bodove
 		{
 			if (m_vKlubovi[i]->DohvatiSifruKluba() == k1->DohvatiSifruKluba())
 			{
+				m_vKlubovi[i]->m_nBrojUtakmica++;
 				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k1->m_nBrojBodovaKluba;
+				m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + k1->m_nBrojPobjeda;
+				m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + k1->m_nBrojNerjesenih;
+				m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + nGoloviDomacina;
 			}
 			if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
 			{
+				m_vKlubovi[i]->m_nBrojUtakmica++;
 				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k2->m_nBrojBodovaKluba;
+				m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + k2->m_nBrojPobjeda;
+				m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + k2->m_nBrojNerjesenih;
+				m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + nGoloviGosta;
 			}
 		}
+
 	}
 }
 
@@ -1058,32 +1071,6 @@ int Liga::DohvatiGoloveGosta()
 void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 {
 	try { // ulovi iznimku koja moze biti u ovom bloku
-		int nBrojBodovaDomacina = 0;
-		int nBrojBodovaGosta = 0;
-		if (gd > gg)
-		{
-			nBrojBodovaDomacina = 3;
-		}
-		else if (gd == gg)
-		{
-			nBrojBodovaDomacina = 1;
-			nBrojBodovaGosta = 1;
-		}
-		else
-		{
-			nBrojBodovaGosta = 3;
-		}
-		for (int i = 0; i < m_vKlubovi.size(); i++) // zbroji bodove
-		{
-			if (m_vKlubovi[i]->DohvatiSifruKluba() == k1->DohvatiSifruKluba())
-			{
-				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaDomacina;
-			}
-			if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
-			{
-				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaGosta;
-			}
-		}
 		Utakmica *u1 = new Utakmica(k1, k2, gd, gg);
 		auto odigranaUtakmica = from(m_vRezultati) // provjeri je li utakmica odigrana
 			>> where([&](Utakmica const *u2)
@@ -1102,10 +1089,52 @@ void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 		}
 		else
 		{
+			int nBrojUtakmica = 0;
+			int nBrojBodovaDomacina = 0;
+			int nBrojBodovaGosta = 0;
+			int nBrojPobjedaDomacina = 0;
+			int nBrojPobjedaGosta = 0;
+			int nBrojNerjesenihDomacina = 0;
+			int nBrojNerjesenihGosta = 0;
+			if (gd > gg)
+			{
+				nBrojBodovaDomacina = 3;
+				nBrojPobjedaDomacina = 1;
+			}
+			else if (gd == gg)
+			{
+				nBrojBodovaDomacina = 1;
+				nBrojBodovaGosta = 1;
+				nBrojNerjesenihDomacina = 1;
+				nBrojNerjesenihGosta = 1;
+			}
+			else
+			{
+				nBrojBodovaGosta = 3;
+				nBrojPobjedaGosta = 1;
+			}
+			for (int i = 0; i < m_vKlubovi.size(); i++) // zbroji golove i bodove
+			{
+				if (m_vKlubovi[i]->DohvatiSifruKluba() == k1->DohvatiSifruKluba())
+				{
+					m_vKlubovi[i]->m_nBrojUtakmica++;
+					m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaDomacina;
+					m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + nBrojPobjedaDomacina;
+					m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + nBrojNerjesenihDomacina;
+					m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + gd;
+				}
+				if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
+				{
+					m_vKlubovi[i]->m_nBrojUtakmica++;
+					m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaGosta;
+					m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + nBrojPobjedaGosta;
+					m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + nBrojNerjesenihGosta;
+					m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + gg;
+				}
+			}
 			m_vRezultati.push_back(u1);
 			SpremiPromjene(m_vRezultati);
 		}
-
 	}
 	catch (int) {
 		cout << "\t\t " << TextAttr(TextColor::RED) << " \nNešto nije u redu.\nSpremanje novog kluba nije valjano izvrseno.\n Provjerite datoteku rezultati.xml \n\n " << TextAttr(TextColor::WHITE);
@@ -1255,20 +1284,35 @@ void Liga::PrikaziRangListu()
 		>> orderby_descending([&](Klub const *klub) {  return klub->m_nBrojBodovaKluba; })
 		>> to_vector();
 	TextTables t('-', '|', '+');
-	t.add("Redni broj");
+	t.add("R.br.");
 	t.add("Naziv kluba");
-	t.add("Grad");
+	t.add("Broj utakmica");
 	t.add("Bodovi");
+	t.add("Pobjeda");
+	t.add("Nerijeseno");
+	t.add("Gol razlika");
 	t.endOfRow();
 	int i = 0;
-	for (vector<Klub*>::iterator it = m_vKlubovi.begin();it != m_vKlubovi.end(); ++it)
-	{
+	for (vector<Klub*>::iterator it = vRang.begin();it != vRang.end(); ++it)
+	{	
+		if (i == 0)
+		{
+			cout << TextAttr(TextColor::CYAN);
+		}
+		else if (i == 9)
+		{
+			cout << TextAttr(TextColor::RED);
+		}
 		t.add(to_string(i + 1));
 		t.add((*it)->DohvatiNazivKluba());
-		t.add((*it)->DohvatiGradKluba());
+		t.add(to_string((*it)->m_nBrojUtakmica));
 		t.add(to_string((*it)->m_nBrojBodovaKluba));
+		t.add(to_string((*it)->m_nBrojPobjeda));
+		t.add(to_string((*it)->m_nBrojNerjesenih));
+		t.add(to_string((*it)->m_nGolRazlika));
 		t.endOfRow();
 		i++;
+		cout << TextAttr(TextColor::WHITE);
 	}
 	cout << "\n\t" << t;
 	SporedniIzbornik(7);

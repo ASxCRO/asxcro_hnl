@@ -7,7 +7,7 @@ class Klub
 public:
 	Klub();
 	Klub(int sk, string n, string g);
-	~Klub();
+	virtual ~Klub();
 	int DohvatiSifruKluba() const;
 	string DohvatiNazivKluba();
 	string DohvatiGradKluba();

@@ -5,7 +5,7 @@ class Igrac :
 {
 public:
 	Igrac(int s, string i, string p, int gr, int sk);
-	~Igrac();
+	virtual ~Igrac();
 	int DohvatiSifruIgraca() const;
 	string DohvatiImeIgraca();
 	string DohvatiPrezimeIgraca();

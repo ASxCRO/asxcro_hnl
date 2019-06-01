@@ -243,28 +243,36 @@ repeat:
 	}
 }
 
-int  Liga::IzaberiOpciju() const
+int  Liga::IzaberiOpciju()
 {
 	int a = 0;
-	bool nastaviPetlju = true;
+	bool nastaviPetlju = false;
 	char key = ' ';
-	while (nastaviPetlju)
+	bool quit = false;
+	while (!nastaviPetlju)
 	{
 		cout << "\n\t\tVas izbor: ";
-		while (_kbhit() == 0) {
+			
+		while (!quit)
+		{
 			key = _getch();
 			if (int(key) > 100) //ascii
 			{
 				a = int(key);
 			}
-			else {
+			else if (int(key)> 0 && int(key) <= 100) {
 				a = int(key) - 48;
 			}
-			nastaviPetlju = false;
+			else if (int(key) == 0)
+			{
+				a = KriviOdabir();
+			}
+			quit = true;
 			break;
 		}
-		return a;
+		nastaviPetlju = true;
 	}
+	return a;
 }
 
 int Liga::KriviOdabir()
@@ -279,8 +287,8 @@ void Liga::UvecajFont()
 	CONSOLE_FONT_INFOEX font;
 	font.cbSize = sizeof(font);
 	font.nFont = 0;
-	font.dwFontSize.X = 0;                   // sirina slova
-	font.dwFontSize.Y = 28;                  // visina
+	font.dwFontSize.X = 0;                   //
+	font.dwFontSize.Y = 28;                  //velicina slova
 	font.FontFamily = FF_MODERN;
 	font.FontWeight = FW_BOLD;
 	wcscpy_s(font.FaceName, L"Consolas");
@@ -1100,7 +1108,7 @@ void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 
 	}
 	catch (int) {
-		cout << "\t\t " << TextAttr(TextColor::RED) << " \nNešto nije u redu.\nSpremanje novog klupa nije valjano izvrseno.\n Provjerite datoteku rezultati.xml \n\n " << TextAttr(TextColor::WHITE);
+		cout << "\t\t " << TextAttr(TextColor::RED) << " \nNešto nije u redu.\nSpremanje novog kluba nije valjano izvrseno.\n Provjerite datoteku rezultati.xml \n\n " << TextAttr(TextColor::WHITE);
 		SporedniIzbornik(0);
 	}
 
@@ -1252,13 +1260,15 @@ void Liga::PrikaziRangListu()
 	t.add("Grad");
 	t.add("Bodovi");
 	t.endOfRow();
-	for (int i = 0; i < vRang.size(); i++)
+	int i = 0;
+	for (vector<Klub*>::iterator it = m_vKlubovi.begin();it != m_vKlubovi.end(); ++it)
 	{
 		t.add(to_string(i + 1));
-		t.add(vRang[i]->DohvatiNazivKluba());
-		t.add(vRang[i]->DohvatiGradKluba());
-		t.add(to_string(vRang[i]->m_nBrojBodovaKluba));
+		t.add((*it)->DohvatiNazivKluba());
+		t.add((*it)->DohvatiGradKluba());
+		t.add(to_string((*it)->m_nBrojBodovaKluba));
 		t.endOfRow();
+		i++;
 	}
 	cout << "\n\t" << t;
 	SporedniIzbornik(7);

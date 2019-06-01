@@ -23,7 +23,7 @@ public:
 	void UlazUProgram();
 	void GlavniIzbornik();
 	void SporedniIzbornik(int b);
-	int IzaberiOpciju() const;
+	int IzaberiOpciju();
 	int KriviOdabir();
 	void UvecajFont();
 	void FullScreen();
@@ -37,11 +37,11 @@ public:
 	void UcitavanjeRezultati();
 	//XML
 	XML::XMLDocument m_docKlubovi;
-	XMLElement *m_eKlubovi;
+	XML::XMLElement *m_eKlubovi;
 	XML::XMLDocument m_docIgraci;
-	XMLElement *m_eIgraci;
+	XML::XMLElement *m_eIgraci;
 	XML::XMLDocument m_docRezultati;
-	XMLElement *m_eRezultati;
+	XML::XMLElement *m_eRezultati;
 	//spremanje vektora u xml
 	void SpremiPromjene(vector<Klub*> vKlubovi);
 	void SpremiPromjene(vector<Igrac*> vIgraci);

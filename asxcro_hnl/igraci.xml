@@ -103,8 +103,8 @@
     <igrac klubID="8" godinaRodjenja="1996" prezime="Bodalec" ime="Ivan" igracID="100"/>
     <igrac klubID="8" godinaRodjenja="1996" prezime="Sabolicek" ime="Petar" igracID="101"/>
     <igrac klubID="8" godinaRodjenja="1996" prezime="Bool" ime="Bibo" igracID="102"/>
-    <igrac klubID="8" godinaRodjenja="1997" prezime="String" ime="Ker" igracID="103"/>
-    <igrac klubID="8" godinaRodjenja="1999" prezime="Balic" ime="Ivano" igracID="104"/>
+    <igrac klubID="9" godinaRodjenja="1990" prezime="String" ime="Ker" igracID="103"/>
+    <igrac klubID="8" godinaRodjenja="1995" prezime="Balic" ime="Ivano" igracID="104"/>
     <igrac klubID="8" godinaRodjenja="1999" prezime="Horvatic" ime="Jozo" igracID="105"/>
     <igrac klubID="9" godinaRodjenja="1999" prezime="Dekanovic" ime="Rvat" igracID="106"/>
     <igrac klubID="9" godinaRodjenja="1996" prezime="Hrvatina" ime="Krsto" igracID="107"/>

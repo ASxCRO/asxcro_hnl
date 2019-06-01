@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Rezultati>
-    <utakmica klubDomacinID="0" klubGostID="1" goloviDomacin="2" goloviGost="6"/>
-    <utakmica klubDomacinID="0" klubGostID="2" goloviDomacin="2" goloviGost="1"/>
-    <utakmica klubDomacinID="0" klubGostID="3" goloviDomacin="1" goloviGost="2"/>
-    <utakmica klubDomacinID="0" klubGostID="4" goloviDomacin="4" goloviGost="4"/>
-    <utakmica klubDomacinID="0" klubGostID="5" goloviDomacin="1" goloviGost="1"/>
-    <utakmica klubDomacinID="0" klubGostID="6" goloviDomacin="1" goloviGost="2"/>
-    <utakmica klubDomacinID="0" klubGostID="7" goloviDomacin="4" goloviGost="4"/>
-    <utakmica klubDomacinID="0" klubGostID="8" goloviDomacin="6" goloviGost="1"/>
-    <utakmica klubDomacinID="0" klubGostID="9" goloviDomacin="5" goloviGost="5"/>
-    <utakmica klubDomacinID="1" klubGostID="0" goloviDomacin="6" goloviGost="0"/>
+    <utakmica klubDomacinID="0" klubGostID="1" goloviDomacin="1" goloviGost="0"/>
+    <utakmica klubDomacinID="0" klubGostID="2" goloviDomacin="6" goloviGost="5"/>
+    <utakmica klubDomacinID="0" klubGostID="3" goloviDomacin="3" goloviGost="2"/>
+    <utakmica klubDomacinID="0" klubGostID="4" goloviDomacin="5" goloviGost="0"/>
+    <utakmica klubDomacinID="0" klubGostID="5" goloviDomacin="5" goloviGost="6"/>
+    <utakmica klubDomacinID="0" klubGostID="6" goloviDomacin="0" goloviGost="5"/>
+    <utakmica klubDomacinID="0" klubGostID="7" goloviDomacin="6" goloviGost="6"/>
+    <utakmica klubDomacinID="0" klubGostID="8" goloviDomacin="0" goloviGost="1"/>
+    <utakmica klubDomacinID="0" klubGostID="9" goloviDomacin="6" goloviGost="0"/>
+    <utakmica klubDomacinID="1" klubGostID="0" goloviDomacin="4" goloviGost="4"/>
     <utakmica klubDomacinID="1" klubGostID="2" goloviDomacin="2" goloviGost="2"/>
-    <utakmica klubDomacinID="1" klubGostID="3" goloviDomacin="3" goloviGost="6"/>
-    <utakmica klubDomacinID="1" klubGostID="4" goloviDomacin="5" goloviGost="6"/>
+    <utakmica klubDomacinID="1" klubGostID="3" goloviDomacin="0" goloviGost="1"/>
+    <utakmica klubDomacinID="1" klubGostID="4" goloviDomacin="1" goloviGost="1"/>
     <utakmica klubDomacinID="1" klubGostID="5" goloviDomacin="5" goloviGost="5"/>
     <utakmica klubDomacinID="1" klubGostID="6" goloviDomacin="6" goloviGost="1"/>
     <utakmica klubDomacinID="1" klubGostID="7" goloviDomacin="1" goloviGost="5"/>
     <utakmica klubDomacinID="1" klubGostID="8" goloviDomacin="1" goloviGost="2"/>
     <utakmica klubDomacinID="1" klubGostID="9" goloviDomacin="0" goloviGost="4"/>
-    <utakmica klubDomacinID="2" klubGostID="0" goloviDomacin="0" goloviGost="4"/>
+    <utakmica klubDomacinID="2" klubGostID="0" goloviDomacin="5" goloviGost="0"/>
     <utakmica klubDomacinID="2" klubGostID="1" goloviDomacin="4" goloviGost="3"/>
-    <utakmica klubDomacinID="2" klubGostID="3" goloviDomacin="3" goloviGost="4"/>
+    <utakmica klubDomacinID="2" klubGostID="3" goloviDomacin="0" goloviGost="1"/>
     <utakmica klubDomacinID="2" klubGostID="4" goloviDomacin="4" goloviGost="2"/>
     <utakmica klubDomacinID="2" klubGostID="5" goloviDomacin="5" goloviGost="2"/>
-    <utakmica klubDomacinID="2" klubGostID="6" goloviDomacin="0" goloviGost="4"/>
+    <utakmica klubDomacinID="2" klubGostID="6" goloviDomacin="1" goloviGost="0"/>
     <utakmica klubDomacinID="2" klubGostID="7" goloviDomacin="1" goloviGost="1"/>
     <utakmica klubDomacinID="2" klubGostID="8" goloviDomacin="4" goloviGost="1"/>
     <utakmica klubDomacinID="2" klubGostID="9" goloviDomacin="0" goloviGost="4"/>
-    <utakmica klubDomacinID="3" klubGostID="0" goloviDomacin="0" goloviGost="4"/>
+    <utakmica klubDomacinID="3" klubGostID="0" goloviDomacin="3" goloviGost="0"/>
     <utakmica klubDomacinID="3" klubGostID="1" goloviDomacin="1" goloviGost="4"/>
     <utakmica klubDomacinID="3" klubGostID="2" goloviDomacin="5" goloviGost="1"/>
     <utakmica klubDomacinID="3" klubGostID="4" goloviDomacin="3" goloviGost="4"/>
@@ -36,7 +36,7 @@
     <utakmica klubDomacinID="3" klubGostID="7" goloviDomacin="3" goloviGost="3"/>
     <utakmica klubDomacinID="3" klubGostID="8" goloviDomacin="0" goloviGost="3"/>
     <utakmica klubDomacinID="3" klubGostID="9" goloviDomacin="6" goloviGost="5"/>
-    <utakmica klubDomacinID="4" klubGostID="0" goloviDomacin="6" goloviGost="5"/>
+    <utakmica klubDomacinID="4" klubGostID="0" goloviDomacin="0" goloviGost="2"/>
     <utakmica klubDomacinID="4" klubGostID="1" goloviDomacin="3" goloviGost="6"/>
     <utakmica klubDomacinID="4" klubGostID="2" goloviDomacin="5" goloviGost="0"/>
     <utakmica klubDomacinID="4" klubGostID="3" goloviDomacin="5" goloviGost="6"/>
@@ -45,16 +45,16 @@
     <utakmica klubDomacinID="4" klubGostID="7" goloviDomacin="3" goloviGost="3"/>
     <utakmica klubDomacinID="4" klubGostID="8" goloviDomacin="3" goloviGost="5"/>
     <utakmica klubDomacinID="4" klubGostID="9" goloviDomacin="1" goloviGost="2"/>
-    <utakmica klubDomacinID="5" klubGostID="0" goloviDomacin="1" goloviGost="2"/>
+    <utakmica klubDomacinID="5" klubGostID="0" goloviDomacin="4" goloviGost="1"/>
     <utakmica klubDomacinID="5" klubGostID="1" goloviDomacin="0" goloviGost="4"/>
-    <utakmica klubDomacinID="5" klubGostID="2" goloviDomacin="0" goloviGost="1"/>
+    <utakmica klubDomacinID="5" klubGostID="2" goloviDomacin="0" goloviGost="6"/>
     <utakmica klubDomacinID="5" klubGostID="3" goloviDomacin="4" goloviGost="3"/>
     <utakmica klubDomacinID="5" klubGostID="4" goloviDomacin="4" goloviGost="0"/>
     <utakmica klubDomacinID="5" klubGostID="6" goloviDomacin="3" goloviGost="0"/>
-    <utakmica klubDomacinID="5" klubGostID="7" goloviDomacin="0" goloviGost="1"/>
+    <utakmica klubDomacinID="5" klubGostID="7" goloviDomacin="5" goloviGost="6"/>
     <utakmica klubDomacinID="5" klubGostID="8" goloviDomacin="3" goloviGost="4"/>
     <utakmica klubDomacinID="5" klubGostID="9" goloviDomacin="5" goloviGost="3"/>
-    <utakmica klubDomacinID="6" klubGostID="0" goloviDomacin="5" goloviGost="3"/>
+    <utakmica klubDomacinID="6" klubGostID="0" goloviDomacin="5" goloviGost="0"/>
     <utakmica klubDomacinID="6" klubGostID="1" goloviDomacin="2" goloviGost="3"/>
     <utakmica klubDomacinID="6" klubGostID="2" goloviDomacin="2" goloviGost="4"/>
     <utakmica klubDomacinID="6" klubGostID="3" goloviDomacin="5" goloviGost="5"/>
@@ -63,7 +63,7 @@
     <utakmica klubDomacinID="6" klubGostID="7" goloviDomacin="4" goloviGost="4"/>
     <utakmica klubDomacinID="6" klubGostID="8" goloviDomacin="5" goloviGost="2"/>
     <utakmica klubDomacinID="6" klubGostID="9" goloviDomacin="4" goloviGost="1"/>
-    <utakmica klubDomacinID="7" klubGostID="0" goloviDomacin="4" goloviGost="1"/>
+    <utakmica klubDomacinID="7" klubGostID="0" goloviDomacin="2" goloviGost="6"/>
     <utakmica klubDomacinID="7" klubGostID="1" goloviDomacin="6" goloviGost="5"/>
     <utakmica klubDomacinID="7" klubGostID="2" goloviDomacin="1" goloviGost="2"/>
     <utakmica klubDomacinID="7" klubGostID="3" goloviDomacin="1" goloviGost="3"/>
@@ -72,7 +72,7 @@
     <utakmica klubDomacinID="7" klubGostID="6" goloviDomacin="3" goloviGost="4"/>
     <utakmica klubDomacinID="7" klubGostID="8" goloviDomacin="1" goloviGost="2"/>
     <utakmica klubDomacinID="7" klubGostID="9" goloviDomacin="5" goloviGost="2"/>
-    <utakmica klubDomacinID="8" klubGostID="0" goloviDomacin="5" goloviGost="2"/>
+    <utakmica klubDomacinID="8" klubGostID="0" goloviDomacin="0" goloviGost="5"/>
     <utakmica klubDomacinID="8" klubGostID="1" goloviDomacin="2" goloviGost="0"/>
     <utakmica klubDomacinID="8" klubGostID="2" goloviDomacin="1" goloviGost="3"/>
     <utakmica klubDomacinID="8" klubGostID="3" goloviDomacin="3" goloviGost="5"/>
@@ -81,7 +81,7 @@
     <utakmica klubDomacinID="8" klubGostID="6" goloviDomacin="4" goloviGost="6"/>
     <utakmica klubDomacinID="8" klubGostID="7" goloviDomacin="2" goloviGost="3"/>
     <utakmica klubDomacinID="8" klubGostID="9" goloviDomacin="1" goloviGost="3"/>
-    <utakmica klubDomacinID="9" klubGostID="0" goloviDomacin="1" goloviGost="3"/>
+    <utakmica klubDomacinID="9" klubGostID="0" goloviDomacin="2" goloviGost="6"/>
     <utakmica klubDomacinID="9" klubGostID="1" goloviDomacin="2" goloviGost="1"/>
     <utakmica klubDomacinID="9" klubGostID="2" goloviDomacin="1" goloviGost="2"/>
     <utakmica klubDomacinID="9" klubGostID="3" goloviDomacin="4" goloviGost="4"/>

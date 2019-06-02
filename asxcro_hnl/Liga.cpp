@@ -1173,6 +1173,7 @@ void Liga::OdigrajUtakmice()
 	}
 	cout << TextAttr(TextColor::CYAN) << "\t\tOdigravanje utakmica.Pricekajte...\n  " << TextAttr(TextColor::WHITE);
 	int odigraneUtakmice = 0;
+	srand(time(NULL));
 	for (int j = 0; j < m_vKlubovi.size(); j++) // svaki klub igra sa svakim klubom osim sebe samog, vrijedi za gostovanje i kad su domacini
 	{
 		Klub* klubDomacina = m_vKlubovi[j];

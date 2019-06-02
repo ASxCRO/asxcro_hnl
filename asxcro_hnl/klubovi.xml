@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Klubovi>
-    <klub nazivKluba="Glavonje" klubID="0" gradKluba="Glavastina"/>
-    <klub nazivKluba="Dinamo" klubID="1" gradKluba="Zagreb"/>
-    <klub nazivKluba="Parasani" klubID="2" gradKluba="Golobrdci"/>
-    <klub nazivKluba="SlavenBelupo" klubID="3" gradKluba="Koprivnica"/>
-    <klub nazivKluba="Lol" klubID="4" gradKluba="League"/>
-    <klub nazivKluba="ZutoZeleni" klubID="5" gradKluba="Vinkovci"/>
-    <klub nazivKluba="Croatia" klubID="6" gradKluba="Mihaljevci"/>
-    <klub nazivKluba="Pozega" klubID="7" gradKluba="Slavonija"/>
-    <klub nazivKluba="ZelenoZuti" klubID="8" gradKluba="Vukovar"/>
-    <klub nazivKluba="AnteKuku" klubID="9" gradKluba="Slatina"/>
+    <klub nazivKluba="Dinamo" klubID="0" gradKluba="Zagreb"/>
+    <klub nazivKluba="Gorica" klubID="1" gradKluba="Velika Gorica"/>
+    <klub nazivKluba="Hajduk" klubID="2" gradKluba="Split"/>
+    <klub nazivKluba="Inter" klubID="3" gradKluba="Zapresic"/>
+    <klub nazivKluba="Istra" klubID="4" gradKluba="Pula"/>
+    <klub nazivKluba="Lokomotiva" klubID="5" gradKluba="Zagreb"/>
+    <klub nazivKluba="Osijek" klubID="6" gradKluba="Osijek"/>
+    <klub nazivKluba="Rijeka" klubID="7" gradKluba="Rijeka"/>
+    <klub nazivKluba="Rudes" klubID="8" gradKluba="Zagreb"/>
+    <klub nazivKluba="Slaven Belupo" klubID="9" gradKluba="Koprivnica"/>
 </Klubovi>

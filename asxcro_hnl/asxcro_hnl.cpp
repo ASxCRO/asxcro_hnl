@@ -5,6 +5,7 @@ int main()
 {
 	Liga* HNL = new Liga();
 	HNL->UlazUProgram();
+	delete HNL;
 }
 
 

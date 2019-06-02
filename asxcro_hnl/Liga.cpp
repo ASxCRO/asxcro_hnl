@@ -388,6 +388,7 @@ void Liga::UcitavanjeRezultati()
 				m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + k1->m_nBrojPobjeda;
 				m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + k1->m_nBrojNerjesenih;
 				m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + nGoloviDomacina;
+				m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika - nGoloviGosta;
 			}
 			if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
 			{
@@ -395,6 +396,7 @@ void Liga::UcitavanjeRezultati()
 				m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + k2->m_nBrojBodovaKluba;
 				m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + k2->m_nBrojPobjeda;
 				m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + k2->m_nBrojNerjesenih;
+				m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika - nGoloviDomacina;
 				m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + nGoloviGosta;
 			}
 		}
@@ -1122,6 +1124,7 @@ void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 					m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + nBrojPobjedaDomacina;
 					m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + nBrojNerjesenihDomacina;
 					m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + gd;
+					m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika - gg;
 				}
 				if (m_vKlubovi[i]->DohvatiSifruKluba() == k2->DohvatiSifruKluba())
 				{
@@ -1129,6 +1132,7 @@ void Liga::UnesiRezultat(Klub* k1, Klub* k2, int gd, int gg)
 					m_vKlubovi[i]->m_nBrojBodovaKluba = m_vKlubovi[i]->m_nBrojBodovaKluba + nBrojBodovaGosta;
 					m_vKlubovi[i]->m_nBrojPobjeda = m_vKlubovi[i]->m_nBrojPobjeda + nBrojPobjedaGosta;
 					m_vKlubovi[i]->m_nBrojNerjesenih = m_vKlubovi[i]->m_nBrojNerjesenih + nBrojNerjesenihGosta;
+					m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika - gd;
 					m_vKlubovi[i]->m_nGolRazlika = m_vKlubovi[i]->m_nGolRazlika + gg;
 				}
 			}
@@ -1286,7 +1290,7 @@ void Liga::PrikaziRangListu()
 	TextTables t('-', '|', '+');
 	t.add("R.br.");
 	t.add("Naziv kluba");
-	t.add("Broj utakmica");
+	t.add("Odigrani susreti");
 	t.add("Bodovi");
 	t.add("Pobjeda");
 	t.add("Nerijeseno");
